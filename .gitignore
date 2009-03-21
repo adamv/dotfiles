@@ -1,9 +1,14 @@
-# Ignore everything by default.
+## Ignore everything by default.
 *
 
+## Then allow...
 # Git files
+!.gitconfig
 !.gitignore
 
 # Bash files
 !.bashrc
 !.bash_profile
+
+# Utilities
+!bin/*
