@@ -1,9 +1,23 @@
 export PATH=/opt/local/bin:$PATH
 
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTCONTROL=ignoredups
+# ... and ignore same sucessive entries.
+export HISTCONTROL=ignoreboth
+
+# auto-completion is not case sensitive anymore
+set completion-ignore-case On
+
+
 export EDITOR='mate -w'
+
 
 alias cls='clear'  # from DOS
 alias e='mate . &' # open current dir as TextMate project
+alias mkdir="mkdir -vp"
 
 
 # Open a manpage in Preview, which can be saved to PDF
