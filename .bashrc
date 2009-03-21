@@ -2,7 +2,8 @@ export PATH=/opt/local/bin:$PATH
 
 export EDITOR='mate -w'
 
-alias cls='clear'
+alias cls='clear'  # from DOS
+alias e='mate . &' # open current dir as TextMate project
 
 
 # Open a manpage in Preview, which can be saved to PDF
@@ -41,22 +42,26 @@ function parse_git_branch {
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
-  if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-state="${RED}⚡"
+  
+  if [[ ! ${git_status} =~ "working directory clean" ]]; then
+    state="${RED}⚡"
   fi
+  
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
-if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-remote="${YELLOW}↑"
+    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+        remote="${YELLOW}↑"
     else
-remote="${YELLOW}↓"
+        remote="${YELLOW}↓"
     fi
-fi
-if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-remote="${YELLOW}↕"
   fi
-if [[ ${git_status} =~ ${branch_pattern} ]]; then
-branch=${BASH_REMATCH[1]}
+
+  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+    remote="${YELLOW}↕"
+  fi
+
+  if [[ ${git_status} =~ ${branch_pattern} ]]; then
+    branch=${BASH_REMATCH[1]}
     echo "(${branch})${remote}${state}"
   fi
 }
