@@ -22,14 +22,10 @@ set completion-ignore-case On
 
 export EDITOR='mate -w'
 
-alias mkdir="mkdir -vp"
 
-# From DOS
 alias cls='clear'
-
-# Open current dir as project in TextMate
-# (Don't open ~/ this way; TextMate hangs!)
-alias e='mate . &'
+alias gush='git push origin master'
+alias mkdir="mkdir -vp"
 
 
 ###################################
