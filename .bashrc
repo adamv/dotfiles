@@ -22,17 +22,14 @@ set completion-ignore-case On
 
 export EDITOR='mate -w'
 
-
-alias cls='clear'  # from DOS
-alias e='mate . &' # open current dir as TextMate project
 alias mkdir="mkdir -vp"
 
+# From DOS
+alias cls='clear'
 
-# Open a manpage in Preview, which can be saved to PDF
-pman()
-{
-   man -t "${1}" | open -f -a /Applications/Preview.app
-}
+# Open current dir as project in TextMate
+# (Don't open ~/ this way; TextMate hangs!)
+alias e='mate . &'
 
 
 ###################################
@@ -46,6 +43,23 @@ alias la="ls -a"
 alias l="ls"
 alias lla="ls -a -l"
 alias lm='ls -la | more'
+
+# Reveal current dir in Path Finder
+pf()
+{
+  osascript<<END
+tell app "Path Finder"
+  reveal POSIX file("$PWD")
+  activate
+end tell
+END
+}
+
+# Open a manpage in Preview, which can be saved to PDF
+pman()
+{
+   man -t "${1}" | open -f -a /Applications/Preview.app
+}
 
 
 ###################################
