@@ -1,0 +1,9 @@
+# Ignore everything by default.
+*
+
+# Git files
+!.gitignore
+
+# Bash files
+!.bashrc
+!.bash_profile
