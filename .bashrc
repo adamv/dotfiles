@@ -31,7 +31,7 @@ export EDITOR='mate -w'
 alias cls='clear'
 alias gush='git push origin master'
 alias mkdir="mkdir -vp"
-alias go-bundles="cd Library/Application\ Support/TextMate/Bundles/"
+alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 
 ###################################
 # ls
