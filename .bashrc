@@ -9,6 +9,11 @@ fi
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+
+# Completions
+source ~/bin/git-completion.sh
+
+
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 # ... and ignore same sucessive entries.
@@ -26,7 +31,7 @@ export EDITOR='mate -w'
 alias cls='clear'
 alias gush='git push origin master'
 alias mkdir="mkdir -vp"
-
+alias go-bundles="cd Library/Application\ Support/TextMate/Bundles/"
 
 ###################################
 # ls
