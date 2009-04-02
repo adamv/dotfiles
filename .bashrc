@@ -80,25 +80,29 @@ function parse_git_branch {
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
+  
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-state="${RED}⚡"
+      state="${RED}⚡"
   fi
+  
   if [[ ! ${git_log_oneline}} =~ " 0" ]]; then
-needs_push="${GREEN}·"
+      needs_push="${GREEN}·"
   fi
-  # add an else if or two here if you want to get more specific
+  
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
-if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-remote="${YELLOW}↑"
+    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+      remote="${YELLOW}↑"
     else
-remote="${YELLOW}↓"
+      remote="${YELLOW}↓"
     fi
-fi
-if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-remote="${YELLOW}↕"
-fi
-if [[ ${git_status} =~ ${branch_pattern} ]]; then
-branch=${BASH_REMATCH[1]}
+  fi
+
+  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+    remote="${YELLOW}↕"
+  fi
+  
+  if [[ ${git_status} =~ ${branch_pattern} ]]; then
+    branch=${BASH_REMATCH[1]}
     echo "(${branch})${remote}${state}${needs_push}"
   fi
 }
