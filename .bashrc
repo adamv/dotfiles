@@ -74,46 +74,31 @@ pman()
  COLOR_NONE="\[\e[0m\]"
 
 function parse_git_branch {
-  # If we're not in our home, but that's where the .git dir is,
-  # then don't show the git status.
-  #
-  # We track .dotfiles, but pretend that subdirectories
-  # aren't in the repo (since they are all ignored anyway.)
-  
-  git_dir="$(git rev-parse --git-dir 2> /dev/null)"
-
-  if [[ ${git_dir} = ~/".git" ]]; then
-    return
-  fi
-  
+  git rev-parse --git-dir &> /dev/null
   git_status="$(git status 2> /dev/null)"
+  git_log_oneline="$(git log --pretty=oneline origin/master..master 2> /dev/null | wc -l)"
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
-  
-  if [[ ! ${git_status} =~ "working directory clean" ]]; then
-    state="${RED}⚡"
+  if [[ ! ${git_status}} =~ "working directory clean" ]]; then
+state="${RED}⚡"
   fi
-
-  if [[ ! ${git_status} =~ "Changed but not updated" ]]; then
-    needs_push="${GREEN}·"
+  if [[ ! ${git_log_oneline}} =~ " 0" ]]; then
+needs_push="${GREEN}·"
   fi
-  
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
-    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-        remote="${YELLOW}↑"
+if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+remote="${YELLOW}↑"
     else
-        remote="${YELLOW}↓"
+remote="${YELLOW}↓"
     fi
-  fi
-
-  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    remote="${YELLOW}↕"
-  fi
-
-  if [[ ${git_status} =~ ${branch_pattern} ]]; then
-    branch=${BASH_REMATCH[1]}
+fi
+if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+remote="${YELLOW}↕"
+fi
+if [[ ${git_status} =~ ${branch_pattern} ]]; then
+branch=${BASH_REMATCH[1]}
     echo "(${branch})${remote}${state}${needs_push}"
   fi
 }
