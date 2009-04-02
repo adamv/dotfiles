@@ -94,6 +94,10 @@ function parse_git_branch {
   if [[ ! ${git_status} =~ "working directory clean" ]]; then
     state="${RED}⚡"
   fi
+
+  if [[ ! ${git_status}} =~ "Changed but not updated" ]]; then
+    needs_push="${GREEN}·"
+  fi
   
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
@@ -110,7 +114,7 @@ function parse_git_branch {
 
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
-    echo "(${branch})${remote}${state}"
+    echo "(${branch})${remote}${state}${needs_push}"
   fi
 }
  
