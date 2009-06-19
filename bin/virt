@@ -1,0 +1,15 @@
+#/bin/bash
+
+if [[ -z $1 ]]; then
+    echo No environment specified.
+    exit 1
+fi
+
+target=~/env/$1
+
+if [[ -d $target ]]; then
+    echo Activating Python environment $1;
+    source $target/bin/activate;
+else
+    echo Requested Python environment $1 does not exist.
+fi
