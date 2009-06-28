@@ -33,6 +33,8 @@ alias gush='git push origin master'
 alias mkdir="mkdir -vp"
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 
+alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
+
 ###################################
 # ls
 ###################################
