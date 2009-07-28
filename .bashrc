@@ -5,6 +5,10 @@ if [ -e $HOME/bin ] ; then
   export PATH=$HOME/bin:$PATH
 fi
 
+#Perforce
+if [[ -e .p4 ]] ; then
+    source .p4
+fi
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -12,7 +16,8 @@ fi
 
 # Completions
 source ~/bin/git-completion.bash
-
+source ~/homebrew/brew_bash_completion.sh
+source ~/source/django/extras/django_bash_completion
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
@@ -32,6 +37,8 @@ alias cls='clear'
 alias gush='git push origin master'
 alias mkdir="mkdir -vp"
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
+
+alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
 
 ###################################
 # ls
