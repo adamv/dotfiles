@@ -5,9 +5,9 @@ function relink() {
   ln -sn $2 $1
 }
 
-pushd ..
-    relink $root/.bash_profile ~/.bash_profile
-    relink $root/.bashrc ~/.bashrc
-    relink $root/.gitconfig ~/.gitconfig
-    relink $root/bin ~/bin
+cd ~
+    relink .bash_profile ~/.dotfiles/.bash_profile
+    relink .bashrc ~/.dotfiles/.bashrc
+    relink .gitconfig ~/.dotfiles/.gitconfig
+    relink bin ~/.dotfiles/bin
 popd
