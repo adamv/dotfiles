@@ -1,14 +1,5 @@
-## Ignore everything by default.
-*
+*.pyc
+*.pyo
 
-## Then allow...
-# Git files
-!.gitconfig
-!.gitignore
-
-# Bash files
-!.bashrc
-!.bash_profile
-
-# Utilities
-!bin/*
+# Don't check in the p4 binary.
+bin/p4
