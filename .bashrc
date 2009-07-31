@@ -15,9 +15,15 @@ fi
 
 
 # Completions
-source ~/bin/git-completion.bash
-source ~/homebrew/brew_bash_completion.sh
-source ~/source/django/extras/django_bash_completion
+for comp in ~/bin/git-completion.bash \
+    ~/homebrew/Library/Contributions/brew_bash_completion.sh \
+    ~/source/django/extras/django_bash_completion
+do
+    if [ -e $comp ]
+    then source $comp
+    fi
+done
+
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
