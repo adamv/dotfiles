@@ -6,7 +6,6 @@ function relink() {
 }
 
 pushd ..
-    root=`pwd`
     relink $root/.bash_profile ~/.bash_profile
     relink $root/.bashrc ~/.bashrc
     relink $root/.gitconfig ~/.gitconfig
