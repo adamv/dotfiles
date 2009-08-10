@@ -1,3 +1,0 @@
-#!/bin/bash
-git_dir="$(git rev-parse --git-dir 2> /dev/null)"
-cd $(dirname ${git_dir})
