@@ -1,4 +1,4 @@
-export PATH=/opt/local/bin:$PATH
+export PATH=/usr/local/bin:/opt/local/bin:$PATH
 
 # prepend $HOME/bin to the path if it exists
 if [ -e $HOME/bin ] ; then
