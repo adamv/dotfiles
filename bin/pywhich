@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+import sys, os
+
+def parse_args():
+    import optparse
+    p = optparse.OptionParser()
+    add=p.add_option
+    
+    add("-r", action="store_true", dest="real_path", default=False,
+        help="Dereference symlinks.")
+    
+    add("-b", action="store_true", dest="show_directory", default=False,
+        help="Show directory instead of file.")
+    
+    return p.parse_args()
+
+options,args = parse_args()
+
+module_name = args[0]
+__import__(module_name)
+m = sys.modules[module_name]
+module_file = m.__file__
+
+if options.real_path:
+    module_file = os.path.realpath(module_file)
+    
+if options.show_directory:
+    module_file = os.path.dirname(module_file)
+
+print module_file

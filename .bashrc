@@ -45,6 +45,7 @@ alias mkdir="mkdir -vp"
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
+#alias go-git="cd `dirname $(git rev-parse --git-dir 2> /dev/null)`"
 
 ###################################
 # ls
@@ -87,19 +88,26 @@ pman()
  COLOR_NONE="\[\e[0m\]"
 
 function parse_git_branch {
-  git rev-parse --git-dir &> /dev/null
-  git_status="$(git status 2> /dev/null)"
-  git_log_oneline="$(git log --pretty=oneline origin/master..master 2> /dev/null | wc -l)"
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
+
+  git_status="$(git status 2> /dev/null)"
+  
+  # No branch? Then bail.
+  if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
+    return
+  fi
+
+  branch=${BASH_REMATCH[1]}
   
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
       state="${RED}⚡"
   fi
   
+  git_log_oneline="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
   if [[ ! ${git_log_oneline}} =~ " 0" ]]; then
-      needs_push="${GREEN}·"
+      needs_push="${WHITE}♺"
   fi
   
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
