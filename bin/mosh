@@ -13,6 +13,13 @@ def run(command, print_command=False):
     
     
 def validate_args():
+    usage="""Usage:
+      mount_ssh [user@]hostname[:/[additional_path]] [volume_name] [mount_point] 
+
+    volume_name will default to <hostname>
+    mount_point will default to ~/.mounts/<hostname>
+    """
+
     _script_name = sys.argv.pop(0)
     if not (1 <= len(sys.argv) <=3):
         print usage
@@ -39,43 +46,45 @@ def get_drive_icon(hostname):
         return None   
 
 
-RE_TARGET = r"^(\S+\@)?(\S+)(\:\/\S*)?$"
+def main():
+    RE_TARGET = r"^(\S+\@)?(\S+)(\:\/\S*)?$"
 
-usage="""Usage:
-  mount_ssh [user@]hostname[:/[additional_path]] [volume_name] [mount_point] 
+    validate_args()
 
-volume_name will default to <hostname>
-mount_point will default to ~/.mounts/<hostname>
-"""
+    MOUNT_PREFIX = os.environ.get("MOUNT_PREFIX", "~/.mounts/")
 
-validate_args()
+    target = sys.argv.pop(0)
+    m = re.search(RE_TARGET, target)
+    if not m:
+        print "Invalid target \"%s\"" % target
+        sys.exit(102)
 
-MOUNT_PREFIX = os.environ.get("MOUNT_PREFIX", "~/.mounts/")
+    hostname = m.group(2)
+    targetpath = m.group(3)
+    if not targetpath:
+        target += ":/"
 
-target = sys.argv.pop(0)
-m = re.search(RE_TARGET, target)
-if not m:
-    print "Invalid target \"%s\"" % target
-    sys.exit(102)
+    volume_name = hostname
+    mount_point = MOUNT_PREFIX+hostname
 
-hostname = m.group(2)
-targetpath = m.group(3)
-if not targetpath:
-    target += ":/"
+    if len(sys.argv) == 1:
+        volume_name = sys.argv[0]
+    elif len(sys.argv) == 2:
+        volume_name, mount_point = sys.argv
 
-volume_name = hostname
-mount_point = MOUNT_PREFIX+hostname
+    # Make sure the mount point exists
+    run("mkdir -p %s" % (mount_point))
 
-if len(sys.argv) == 1:
-    volume_name = sys.argv[0]
-elif len(sys.argv) == 2:
-    volume_name, mount_point = sys.argv
+    # Basic mount command
+    sshs_cmd = "sshfs %s %s -oallow_other,auto_cache,reconnect,volname=%s" % (target, mount_point, volume_name)
+    
+    # See if a custom icon is defined for this host
+    drive_icon = get_drive_icon(hostname)
+    if drive_icon:
+        sshs_cmd += " -omodules=volicon,iconpath=\"%s\"" % (drive_icon, )
 
-run("mkdir -p %s" % (mount_point))
+    # Run the sshs command, with echo
+    run(sshs_cmd, True)
 
-sshs_cmd = "sshfs %s %s -oauto_cache,reconnect,volname=%s" % (target, mount_point, volume_name)
-drive_icon = get_drive_icon(hostname)
-if drive_icon:
-    sshs_cmd += " -omodules=volicon -oiconpath=\"%s\"" % (drive_icon, )
+main()
 
-run(sshs_cmd, True)
