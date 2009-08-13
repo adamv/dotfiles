@@ -15,7 +15,7 @@ def run(command, print_command=False):
 def validate_args():
     usage="""
 Usage:
-  mount_ssh [user@]hostname[:/[additional_path]] [volume_name] [mount_point] 
+  mosh [user@]hostname[:/[additional_path]] [volume_name] [mount_point] 
 
 volume_name will default to <hostname>
 mount_point will default to ~/.mounts/<hostname>
