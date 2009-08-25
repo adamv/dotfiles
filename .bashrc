@@ -19,9 +19,7 @@ for comp in ~/bin/git-completion.bash \
     ~/homebrew/Library/Contributions/brew_bash_completion.sh \
     ~/source/django/extras/django_bash_completion
 do
-    if [ -e $comp ]
-    then source $comp
-    fi
+    if [[ -e $comp ]]; then source $comp; fi
 done
 
 
