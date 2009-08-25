@@ -45,7 +45,13 @@ alias mkdir="mkdir -vp"
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
-#alias go-git="cd `dirname $(git rev-parse --git-dir 2> /dev/null)`"
+
+git-root() 
+{
+  root=$(git rev-parse --git-dir 2> /dev/null)
+  if [[ "$root" == "" ]]; then root="."; fi
+  dirname $root
+}
 
 ###################################
 # ls
