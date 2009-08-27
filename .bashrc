@@ -40,6 +40,7 @@ export GIT_EDITOR='mate -wl1'
 alias cls='clear'
 alias gist='git status'
 alias mkdir="mkdir -vp"
+alias delpyc="find . -name '*.pyc' -delete"
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
@@ -50,6 +51,7 @@ git-root()
   if [[ "$root" == "" ]]; then root="."; fi
   dirname $root
 }
+
 
 ###################################
 # ls
