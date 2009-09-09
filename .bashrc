@@ -34,7 +34,7 @@ shopt -s histappend
 # auto-completion is not case sensitive anymore
 set completion-ignore-case On
 
-export EDITOR='mate -w'
+export EDITOR='mate'
 export GIT_EDITOR='mate -wl1'
 
 alias cls='clear'
