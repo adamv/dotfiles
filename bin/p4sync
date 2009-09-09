@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+script=`basename $0`
+
 if [[ -z $1 ]]; then
     echo "No changelist or deploy workspace specified."
-    echo "Usage: get-deploy.sh [name of deploy workspace] changelist"
+    echo "Usage: $script [name of deploy workspace] changelist"
     exit 1
 fi
 
