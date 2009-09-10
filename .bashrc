@@ -89,9 +89,14 @@ LIGHTNING_BOLT="⚡"
       UP_ARROW="↑"
     DOWN_ARROW="↓"
       UD_ARROW="↕"
+      
+GIT_DIRTY="${RED}${LIGHTNING_BOLT}"
 
-function get_git_dirty {
-  git diff --quiet || echo "${RED}${LIGHTNING_BOLT}"
+function is_git_dirty {
+  # git diff --quiet || echo $GIT_DIRTY
+  if [[ ! ${git_status}} =~ "working directory clean" ]]; then
+    echo $GIT_DIRTY
+  fi
 }
 
 function parse_git_branch {
@@ -105,12 +110,6 @@ function parse_git_branch {
   
   [[ ${git_status} =~ ${branch_pattern} ]]
   branch=${BASH_REMATCH[1]}
-  
-  # # Is the working directory dirty?
-  # git update-index -q --refresh; git diff-index --quiet --cached HEAD --ignore-submodules -- && git diff-files --quiet --ignore-submodules
-  # if [[ $? == "1" ]]; then
-  #     state="${RED}${LIGHTNING_BOLT}"
-  # fi
   
   # Do we need to push to origin?
   git_log_linecount="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
@@ -131,7 +130,7 @@ function parse_git_branch {
     remote="${YELLOW}${UD_ARROW}"
   fi
   
-  echo "(${branch})${remote}$(get_git_dirty)${needs_push}"
+  echo "(${branch})${remote}$(is_git_dirty)${needs_push}"
 }
  
 function set_prompt() {
