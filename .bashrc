@@ -90,26 +90,27 @@ LIGHTNING_BOLT="⚡"
     DOWN_ARROW="↓"
       UD_ARROW="↕"
 
+function get_git_dirty {
+  git diff --quiet || echo "${RED}${LIGHTNING_BOLT}"
+}
+
 function parse_git_branch {
+  [ -d .git ] || return 1
+  
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
 
   git_status="$(git status 2> /dev/null)"
   
-  # No branch? Then bail.
-  if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
-    return
-  fi
-
-  #
+  [[ ${git_status} =~ ${branch_pattern} ]]
   branch=${BASH_REMATCH[1]}
   
-  # Is the working directory dirty?
-  git update-index -q --refresh; git diff-index --quiet --cached HEAD --ignore-submodules -- && git diff-files --quiet --ignore-submodules
-  if [[ $? == "1" ]]; then
-      state="${RED}${LIGHTNING_BOLT}"
-  fi
+  # # Is the working directory dirty?
+  # git update-index -q --refresh; git diff-index --quiet --cached HEAD --ignore-submodules -- && git diff-files --quiet --ignore-submodules
+  # if [[ $? == "1" ]]; then
+  #     state="${RED}${LIGHTNING_BOLT}"
+  # fi
   
   # Do we need to push to origin?
   git_log_linecount="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
@@ -130,7 +131,7 @@ function parse_git_branch {
     remote="${YELLOW}${UD_ARROW}"
   fi
   
-  echo "(${branch})${remote}${state}${needs_push}"
+  echo "(${branch})${remote}$(get_git_dirty)${needs_push}"
 }
  
 function set_prompt() {
