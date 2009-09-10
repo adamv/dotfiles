@@ -23,11 +23,6 @@ if [[ -e $HOME/bin ]] ; then
   export PATH=$HOME/bin:$PATH
 fi
 
-## Perforce settings
-if [[ -e .p4 ]] ; then
-    source .p4
-fi
-
 # Todo: Is this really needed?
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -90,11 +85,6 @@ LIGHTNING_BOLT="⚡"
     DOWN_ARROW="↓"
       UD_ARROW="↕"
       
-GIT_DIRTY="${RED}${LIGHTNING_BOLT}"
-
-function is_git_dirty {
-  [[ ${git_status}} =~ "working directory clean" ]] || echo $GIT_DIRTY
-}
 
 function parse_git_branch {
   [ -d .git ] || return 1
@@ -107,7 +97,14 @@ function parse_git_branch {
   
   [[ ${git_status} =~ ${branch_pattern} ]]
   branch=${BASH_REMATCH[1]}
-  
+
+  # Dirty?
+  if [[ ! ${git_status} =~ "working directory clean" ]]; then
+    git_is_dirty="${RED}${LIGHTNING_BOLT}"
+  else
+    git_is_dirty=
+  fi
+
   # Do we need to push to origin?
   git_log_linecount="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
   if [[ ! ${git_log_linecount}} =~ " 0" ]]; then
@@ -127,7 +124,7 @@ function parse_git_branch {
     remote="${YELLOW}${UD_ARROW}"
   fi
   
-  echo "(${branch})${remote}$(is_git_dirty)${needs_push}"
+  echo "(${branch})${remote}${git_is_dirty}${needs_push}"
 }
  
 function set_prompt() {
