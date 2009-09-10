@@ -93,10 +93,7 @@ LIGHTNING_BOLT="⚡"
 GIT_DIRTY="${RED}${LIGHTNING_BOLT}"
 
 function is_git_dirty {
-  # git diff --quiet || echo $GIT_DIRTY
-  if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-    echo $GIT_DIRTY
-  fi
+  [[ ${git_status}} =~ "working directory clean" ]] || echo $GIT_DIRTY
 }
 
 function parse_git_branch {
