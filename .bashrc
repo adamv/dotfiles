@@ -104,15 +104,18 @@ function parse_git_branch {
 
   branch=${BASH_REMATCH[1]}
   
+  # Is the working directory dirty?
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
       state="${RED}${LIGHTNING_BOLT}"
   fi
   
-  git_log_oneline="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
-  if [[ ! ${git_log_oneline}} =~ " 0" ]]; then
+  # Do we need to push to origin?
+  git_log_linecount="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
+  if [[ ! ${git_log_linecount}} =~ " 0" ]]; then
       needs_push="${WHITE}♺"
   fi
   
+  # Are we ahead of, beind, or diverged from the remote?
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
     if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
       remote="${YELLOW}${UP_ARROW}"
@@ -125,10 +128,7 @@ function parse_git_branch {
     remote="${YELLOW}${UD_ARROW}"
   fi
   
-  if [[ ${git_status} =~ ${branch_pattern} ]]; then
-    branch=${BASH_REMATCH[1]}
-    echo "(${branch})${remote}${state}${needs_push}"
-  fi
+  echo "(${branch})${remote}${state}${needs_push}"
 }
  
 function set_prompt() {
