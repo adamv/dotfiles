@@ -73,14 +73,22 @@ done
 
 
 ## Custom prompt
-## Colors
-        RED="\[\033[0;31m\]"
-     YELLOW="\[\033[0;33m\]"
-      GREEN="\[\033[0;32m\]"
-       BLUE="\[\033[0;34m\]"
-      WHITE="\[\033[1;37m\]"
- COLOR_NONE="\[\e[0m\]"
+# Colors
+       RED="\[\033[0;31m\]"
+      PINK="\[\033[1;31m\]"
+    YELLOW="\[\033[1;33m\]"
+     GREEN="\[\033[0;32m\]"
+  LT_GREEN="\[\033[1;32m\]"
+      BLUE="\[\033[0;34m\]"
+     WHITE="\[\033[1;37m\]"
+    PURPLE="\[\033[1;35m\]"
+      CYAN="\[\033[1;36m\]"      
+COLOR_NONE="\[\033[0m\]"
 
+LIGHTNING_BOLT="⚡"
+      UP_ARROW="↑"
+    DOWN_ARROW="↓"
+      UD_ARROW="↕"
 
 function parse_git_branch {
   branch_pattern="^# On branch ([^${IFS}]*)"
@@ -97,7 +105,7 @@ function parse_git_branch {
   branch=${BASH_REMATCH[1]}
   
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-      state="${RED}⚡"
+      state="${RED}${LIGHTNING_BOLT}"
   fi
   
   git_log_oneline="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
@@ -107,14 +115,14 @@ function parse_git_branch {
   
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
     if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-      remote="${YELLOW}↑"
+      remote="${YELLOW}${UP_ARROW}"
     else
-      remote="${YELLOW}↓"
+      remote="${YELLOW}${DOWN_ARROW}"
     fi
   fi
 
   if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    remote="${YELLOW}↕"
+    remote="${YELLOW}${UD_ARROW}"
   fi
   
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
