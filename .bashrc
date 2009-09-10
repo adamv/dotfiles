@@ -1,20 +1,68 @@
-export PATH=/usr/local/bin:/opt/local/bin:$PATH
+# Adam Vandenberg's bashrc
+# Cobbled together from the Internet
+
+export EDITOR='mate'
+export GIT_EDITOR='mate -wl1'
+
+
+
+## History control
+export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth
+shopt -s histappend
+
+
+
+## PATH
+local_path=/usr/local/bin:/usr/local/sbin
+ports_path=/opt/local/bin:/opt/local/sbin
+export PATH=$local_path:$PATH
 
 # prepend $HOME/bin to the path if it exists
-if [ -e $HOME/bin ] ; then
+if [[ -e $HOME/bin ]] ; then
   export PATH=$HOME/bin:$PATH
 fi
 
-#Perforce
+## Perforce settings
 if [[ -e .p4 ]] ; then
     source .p4
 fi
 
+# Todo: Is this really needed?
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
 
-# Completions
+
+## Colors and ls
+export LSCOLORS=hxfxcxdxbxegedabagHxHx
+
+# -G = enable colors
+alias ls="ls -G"
+alias ll="ls -l -h"
+alias la="ls -a"
+alias l="ls"
+alias lla="ls -a -l"
+alias lm='ls -la | less'
+
+
+
+## Aliases
+
+alias cls='clear'
+alias gist='git status'
+alias mkdir="mkdir -vp"
+alias delpyc="find . -name '*.pyc' -delete"
+alias tree='tree -Ca -I ".git|*.pyc|*.swp"'
+
+alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
+alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
+
+
+
+## Tab Completions
+set completion-ignore-case On
+
 for comp in ~/bin/git-completion.bash \
     ~/homebrew/Library/Contributions/brew_bash_completion.sh \
     ~/source/django/extras/django_bash_completion
@@ -23,69 +71,8 @@ do
 done
 
 
-# don't put duplicate lines in the history. See bash(1) for more options
-export HISTCONTROL=ignoredups
-# ... and ignore same sucessive entries.
-export HISTCONTROL=ignoreboth
+## Custom prompt
 
-shopt -s histappend
-
-
-# auto-completion is not case sensitive anymore
-set completion-ignore-case On
-
-export EDITOR='mate'
-export GIT_EDITOR='mate -wl1'
-
-alias cls='clear'
-alias gist='git status'
-alias mkdir="mkdir -vp"
-alias delpyc="find . -name '*.pyc' -delete"
-alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
-
-alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
-
-git-root() 
-{
-  root=$(git rev-parse --git-dir 2> /dev/null)
-  if [[ "$root" == "" ]]; then root="."; fi
-  dirname $root
-}
-
-
-###################################
-# ls
-###################################
-export CLICOLOR=1
-export LSCOLORS=hxfxcxdxbxegedabagHxHx
-
-alias ll="ls -l -h"
-alias la="ls -a"
-alias l="ls"
-alias lla="ls -a -l"
-alias lm='ls -la | more'
-
-# Reveal current dir in Path Finder
-pf()
-{
-  osascript<<END
-tell app "Path Finder"
-  reveal POSIX file("$PWD")
-  activate
-end tell
-END
-}
-
-# Open a manpage in Preview, which can be saved to PDF
-pman()
-{
-   man -t "${1}" | open -f -a /Applications/Preview.app
-}
-
-
-###################################
-# PROMPT
-###################################
         RED="\[\033[0;31m\]"
      YELLOW="\[\033[0;33m\]"
       GREEN="\[\033[0;32m\]"
@@ -141,3 +128,31 @@ function prompt_func() {
 }
  
 PROMPT_COMMAND=prompt_func
+
+
+## Functions
+
+git-root() 
+{
+  root=$(git rev-parse --git-dir 2> /dev/null)
+  if [[ "$root" == "" ]]; then root="."; fi
+  dirname $root
+}
+
+
+# Reveal current dir in Path Finder
+pf()
+{
+  osascript<<END
+tell app "Path Finder"
+  reveal POSIX file("$PWD")
+  activate
+end tell
+END
+}
+
+# Open a manpage in Preview, which can be saved to PDF
+pman()
+{
+   man -t "${1}" | open -f -a /Applications/Preview.app
+}
