@@ -156,3 +156,16 @@ pman()
 {
    man -t "${1}" | open -f -a /Applications/Preview.app
 }
+
+exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
+function pgrep() {
+    find . -maxdepth 1 -mindepth 1| egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
+}
+
+
+## Source any local additions
+## (To keep work & home a bit more separate.)
+
+if [[ -f ~/.bash_local ]]; then
+    . ~/.bash_local
+fi
