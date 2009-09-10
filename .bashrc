@@ -63,7 +63,8 @@ alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-r
 ## Tab Completions
 set completion-ignore-case On
 
-for comp in ~/bin/git-completion.bash \
+for comp in \
+    ~/bin/git-completion.bash \
     ~/homebrew/Library/Contributions/brew_bash_completion.sh \
     ~/source/django/extras/django_bash_completion
 do
@@ -72,13 +73,14 @@ done
 
 
 ## Custom prompt
-
+## Colors
         RED="\[\033[0;31m\]"
      YELLOW="\[\033[0;33m\]"
       GREEN="\[\033[0;32m\]"
        BLUE="\[\033[0;34m\]"
       WHITE="\[\033[1;37m\]"
  COLOR_NONE="\[\e[0m\]"
+
 
 function parse_git_branch {
   branch_pattern="^# On branch ([^${IFS}]*)"
@@ -121,13 +123,13 @@ function parse_git_branch {
   fi
 }
  
-function prompt_func() {
+function set_prompt() {
     previous_return_value=$?;
-    prompt="[\w]  ${GREEN}$(parse_git_branch)${COLOR_NONE}"
-    PS1="${prompt}\n${COLOR_NONE}$ "
+    git_prompt="${GREEN}$(parse_git_branch)${COLOR_NONE}"
+    export PS1="[\w]  ${git_prompt}\n${COLOR_NONE}$ "
 }
  
-PROMPT_COMMAND=prompt_func
+export PROMPT_COMMAND=set_prompt
 
 
 ## Functions
