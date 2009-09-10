@@ -102,10 +102,12 @@ function parse_git_branch {
     return
   fi
 
+  #
   branch=${BASH_REMATCH[1]}
   
   # Is the working directory dirty?
-  if [[ ! ${git_status}} =~ "working directory clean" ]]; then
+  git update-index -q --refresh; git diff-index --quiet --cached HEAD --ignore-submodules -- && git diff-files --quiet --ignore-submodules
+  if [[ $? == "1" ]]; then
       state="${RED}${LIGHTNING_BOLT}"
   fi
   
@@ -132,9 +134,8 @@ function parse_git_branch {
 }
  
 function set_prompt() {
-    previous_return_value=$?;
-    git_prompt="${GREEN}$(parse_git_branch)${COLOR_NONE}"
-    export PS1="[\w]  ${git_prompt}\n${COLOR_NONE}$ "
+  git_prompt="${GREEN}$(parse_git_branch)${COLOR_NONE}"
+  export PS1="[\w]  ${git_prompt}\n${COLOR_NONE}\$ "
 }
  
 export PROMPT_COMMAND=set_prompt
