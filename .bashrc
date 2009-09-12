@@ -87,15 +87,14 @@ LIGHTNING_BOLT="⚡"
       
 
 function parse_git_branch {
-  [ -d .git ] || return 1
-  
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
 
   git_status="$(git status 2> /dev/null)"
-  
-  [[ ${git_status} =~ ${branch_pattern} ]]
+  if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
+    return
+  fi
   branch=${BASH_REMATCH[1]}
 
   # Dirty?
