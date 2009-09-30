@@ -1,7 +1,6 @@
 #!/bin/bash
 [[ "$1" == '-e' ]] && exec mate $0
 cd ~/homebrew
-git pull --rebase origin master
 github network fetch
 git branch -dr crnixon/old_master
 git branch -dr julienXX/master
@@ -10,4 +9,5 @@ git branch -dr mifix/master
 git branch -dr spagalloco/mysql_version_change
 git branch -dr tvon/masterbrew
 git branch -dr freels/master
+git branch -dr rubbish/mine
 gitx --all
