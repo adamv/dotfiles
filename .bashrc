@@ -48,7 +48,7 @@ alias cls='clear'
 alias gist='git status'
 alias mkdir="mkdir -vp"
 alias delpyc="find . -name '*.pyc' -delete"
-alias tree='tree -Ca -I ".git|*.pyc|*.swp"'
+alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
@@ -84,7 +84,8 @@ LIGHTNING_BOLT="⚡"
       UP_ARROW="↑"
     DOWN_ARROW="↓"
       UD_ARROW="↕"
-      
+       RECYCLE="♺"
+
 
 function parse_git_branch {
   branch_pattern="^# On branch ([^${IFS}]*)"
@@ -107,7 +108,7 @@ function parse_git_branch {
   # Do we need to push to origin?
   git_log_linecount="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
   if [[ ! ${git_log_linecount}} =~ " 0" ]]; then
-      needs_push="${WHITE}♺"
+      needs_push="${WHITE}${RECYCLE}"
   fi
   
   # Are we ahead of, beind, or diverged from the remote?
