@@ -43,7 +43,6 @@ alias lm='ls -la | less'
 
 
 ## Aliases
-
 alias cls='clear'
 alias gist='git status'
 alias mkdir="mkdir -vp"
@@ -53,6 +52,7 @@ alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
 
+alias debrew='brew install --debug --verbose'
 
 
 ## Tab Completions
