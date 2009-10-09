@@ -10,8 +10,11 @@ git branch -dr mifix/master
 git branch -dr spagalloco/mysql_version_change
 git branch -dr freels/master
 git branch -dr rubbish/mine
+git branch -dr jcarbaugh/master
+git branch -dr lukeredpath/localbrew
 # Delete forks of obsolete branches
 git branch -r | grep masterbrew | xargs -I {} git branch -dr {}
 git branch -r | grep deps | xargs -I {} git branch -dr {}
 git branch -r | grep staging | xargs -I {} git branch -dr {}
+git branch -r | grep indirect_verify_this_commit_pls | xargs -I {} git branch -dr {}
 gitx --all
