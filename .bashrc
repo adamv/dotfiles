@@ -18,9 +18,13 @@ local_path=/usr/local/bin:/usr/local/sbin
 ports_path=/opt/local/bin:/opt/local/sbin
 export PATH=$local_path:$PATH
 
-# prepend $HOME/bin to the path if it exists
+# prepend $HOME/bin & $HOME/bin/extra to the path if they exist
 if [[ -e $HOME/bin ]] ; then
   export PATH=$HOME/bin:$PATH
+fi
+
+if [[ -e $HOME/bin/extras ]] ; then
+  export PATH=$HOME/bin/extras:$PATH
 fi
 
 # Todo: Is this really needed?

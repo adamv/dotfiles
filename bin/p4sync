@@ -18,4 +18,4 @@ else
 fi
 
 
-p4 -c$client sync "//$client/...@$revision"
+p4 -c$client sync -f "//$client/...@$revision"
