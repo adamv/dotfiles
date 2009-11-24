@@ -4,3 +4,7 @@
 get_drive_icon
 icons/
 bin/extras/
+
+# This file is in the repo, but we don't
+# want to see changes to it.
+.dotfiles.tmproj

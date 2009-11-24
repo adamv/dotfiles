@@ -15,7 +15,6 @@ shopt -s histappend
 
 ## PATH
 local_path=/usr/local/bin:/usr/local/sbin
-ports_path=/opt/local/bin:/opt/local/sbin
 export PATH=$local_path:$PATH
 
 # prepend $HOME/bin & $HOME/bin/extra to the path if they exist
