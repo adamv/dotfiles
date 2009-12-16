@@ -66,7 +66,7 @@ for comp in \
     ~/homebrew/Library/Contributions/brew_bash_completion.sh \
     ~/source/django/extras/django_bash_completion
 do
-    if [[ -e $comp ]]; then source $comp; fi
+    [[ -e $comp ]] && source $comp
 done
 
 
@@ -172,8 +172,5 @@ function pgrep() {
 
 
 ## Source any local additions
-## (To keep work & home a bit more separate.)
-
-if [[ -f ~/.bash_local ]]; then
-    . ~/.bash_local
-fi
+## (To keep work & home separate.)
+[[ -f ~/.bash_local ]] && . ~/.bash_local
