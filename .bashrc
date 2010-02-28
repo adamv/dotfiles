@@ -51,6 +51,7 @@ alias gist='git status'
 alias mkdir="mkdir -vp"
 alias delpyc="find . -name '*.pyc' -delete"
 alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
+alias sizes='du -h -d1'
 
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
