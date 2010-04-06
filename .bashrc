@@ -31,6 +31,8 @@ done
 [ -z "$PS1" ] && return
 
 
+## Python stuff
+export VIRTUALENV_USE_DISTRIBUTE
 
 ## Colors and ls
 export LSCOLORS=hxfxcxdxbxegedabagHxHx
