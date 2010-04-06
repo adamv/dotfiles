@@ -17,14 +17,15 @@ shopt -s histappend
 local_path=/usr/local/bin:/usr/local/sbin
 export PATH=$local_path:$PATH
 
-# prepend $HOME/bin & $HOME/bin/extra to the path if they exist
-if [[ -e $HOME/bin ]] ; then
-  export PATH=$HOME/bin:$PATH
-fi
 
-if [[ -e $HOME/bin/extras ]] ; then
-  export PATH=$HOME/bin/extras:$PATH
-fi
+for another_bin in \
+    $HOME/bin \
+    $HOME/bin/extras \
+    $HOME/.gem/ruby/1.8/bin
+do
+    [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
+done
+
 
 # Todo: Is this really needed?
 # If not running interactively, don't do anything
