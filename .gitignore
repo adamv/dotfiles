@@ -4,6 +4,8 @@
 get_drive_icon
 icons/
 bin/extras/
+bin/sshfs
+bin/virtualenv.py
 
 # This file is in the repo, but we don't
 # want to see changes to it.
