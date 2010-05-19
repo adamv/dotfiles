@@ -15,3 +15,5 @@
 
 [github]
   user = adamv
+[core]
+	excludesfile = ~/.gitignore
