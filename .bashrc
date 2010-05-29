@@ -151,12 +151,13 @@ git-root()
 }
 
 
-# Reveal current dir in Path Finder
+# Reveal current or provided dir in Path Finder
 pf()
 {
+  target_path=$(cd ${1:-$PWD} && PWD)
   osascript<<END
 tell app "Path Finder"
-  reveal POSIX file("$PWD")
+  reveal POSIX file("$target_path")
   activate
 end tell
 END
