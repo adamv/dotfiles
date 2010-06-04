@@ -5,24 +5,21 @@ export EDITOR='mate'
 export GIT_EDITOR='mate -wl1'
 
 
-
 ## History control
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
 shopt -s histappend
 
 
-
 ## PATH
-local_path=/usr/local/bin:/usr/local/sbin
-export PATH=$local_path:$PATH
-
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 for another_bin in \
     $HOME/bin \
     $HOME/bin/extras \
     $HOME/.gem/ruby/1.8/bin \
-    /Users/adamv/homebrew/Cellar/python/2.6.5/bin
+    $HOME/homebrew/Cellar/python/2.6.5/bin \
+    $HOME/homebrew/Library/Contributions/examples
 do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
@@ -50,7 +47,6 @@ alias lm='ls -la | less'
 
 ## Aliases
 alias cls='clear'
-alias gist='git status'
 alias mkdir="mkdir -vp"
 alias delpyc="find . -name '*.pyc' -delete"
 alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
@@ -59,16 +55,14 @@ alias sizes='du -h -d1'
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
 
-alias debrew='brew install --debug --verbose'
-
 
 ## Tab Completions
 set completion-ignore-case On
 
 for comp in \
     /usr/local/etc/bash_completion.d/git-completion.bash \
-    ~/homebrew/Library/Contributions/brew_bash_completion.sh \
-    ~/source/custom-django/extras/django_bash_completion
+    $HOME/homebrew/Library/Contributions/brew_bash_completion.sh \
+    $HOME/source/custom-django/extras/django_bash_completion
 do
     [[ -e $comp ]] && source $comp
 done
