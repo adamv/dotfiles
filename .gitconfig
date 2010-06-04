@@ -13,7 +13,8 @@
 [push]
   default = current
 
-[github]
-  user = adamv
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
+
+[github]
+	user = adamv

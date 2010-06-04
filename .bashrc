@@ -21,7 +21,8 @@ export PATH=$local_path:$PATH
 for another_bin in \
     $HOME/bin \
     $HOME/bin/extras \
-    $HOME/.gem/ruby/1.8/bin
+    $HOME/.gem/ruby/1.8/bin \
+    /Users/adamv/homebrew/Cellar/python/2.6.5/bin
 do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
@@ -65,7 +66,7 @@ alias debrew='brew install --debug --verbose'
 set completion-ignore-case On
 
 for comp in \
-    ~/bin/git-completion.bash \
+    /usr/local/etc/bash_completion.d/git-completion.bash \
     ~/homebrew/Library/Contributions/brew_bash_completion.sh \
     ~/source/custom-django/extras/django_bash_completion
 do
