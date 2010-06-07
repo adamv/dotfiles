@@ -1,1 +1,2 @@
+#!/bin/bash
 git branch -r | sed -E "/^ *(origin|upstream)\//d" | xargs git branch -dr
