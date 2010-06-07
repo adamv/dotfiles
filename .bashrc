@@ -12,8 +12,10 @@ shopt -s histappend
 
 
 ## PATH
+# Put /usr/local/{sbin,bin} first
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
+# bin folders from ~, gems, and Homebrew examples
 for another_bin in \
     $HOME/bin \
     $HOME/bin/extras \
