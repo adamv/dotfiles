@@ -1,0 +1,2 @@
+#!/bin/bash
+git remote | sed -E "/^(origin|upstream)$/d" | xargs -L 1 git remote rm
