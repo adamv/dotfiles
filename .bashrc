@@ -101,6 +101,10 @@ function parse_git_branch {
 
   git_status="$(git status 2> /dev/null)"
   if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
+    # Rebasing?
+    toplevel=$(git rev-parse --show-toplevel)
+    [[ -d "$toplevel/.git/rebase-merge" ]] && \
+      echo "${PINK}(rebase in progress)${COLOR_NONE}"
     return
   fi
   branch=${BASH_REMATCH[1]}
