@@ -112,8 +112,6 @@ function parse_git_branch {
   # Dirty?
   if [[ ! ${git_status} =~ "working directory clean" ]]; then
     git_is_dirty="${RED}${LIGHTNING_BOLT}"
-  else
-    git_is_dirty=
   fi
 
   # Are we ahead of, beind, or diverged from the remote?
