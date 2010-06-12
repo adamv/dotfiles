@@ -88,12 +88,15 @@ LIGHTNING_BOLT="⚡"
       UP_ARROW="↑"
     DOWN_ARROW="↓"
       UD_ARROW="↕"
+      FF_ARROW="→"
        RECYCLE="♺"
 
 
 function parse_git_branch {
   branch_pattern="^# On branch ([^${IFS}]*)"
-  remote_pattern="# Your branch is (.*) of"
+  remote_pattern_ahead="# Your branch is ahead of"
+  remote_pattern_behind="# Your branch is behind"
+  remote_pattern_ff="# Your branch (.*) can be fast-forwarded."
   diverge_pattern="# Your branch and (.*) have diverged"
 
   git_status="$(git status 2> /dev/null)"
@@ -116,23 +119,21 @@ function parse_git_branch {
   fi
   
   # Are we ahead of, beind, or diverged from the remote?
-  if [[ ${git_status} =~ ${remote_pattern} ]]; then
-    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-      remote="${YELLOW}${UP_ARROW}"
-    else
-      remote="${YELLOW}${DOWN_ARROW}"
-    fi
-  fi
-
-  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+  if [[ ${git_status} =~ ${remote_pattern_ahead} ]]; then
+    remote="${YELLOW}${UP_ARROW}"
+  elif [[ ${git_status} =~ ${remote_pattern_ff} ]]; then
+    remote="${WHITE}${FF_ARROW}"
+  elif [[ ${git_status} =~ ${remote_pattern_behind} ]]; then
+    remote="${YELLOW}${DOWN_ARROW}"
+  elif [[ ${git_status} =~ ${diverge_pattern} ]]; then
     remote="${YELLOW}${UD_ARROW}"
   fi
   
-  echo "(${branch})${remote}${git_is_dirty}${needs_push}"
+  echo "${remote}${GREEN}(${branch})${COLOR_NONE}${git_is_dirty}${needs_push}${COLOR_NONE}"
 }
  
 function set_prompt() {
-  git_prompt="${GREEN}$(parse_git_branch)${COLOR_NONE}"
+  git_prompt="$(parse_git_branch)"
   export PS1="[\w]  ${git_prompt}\n${COLOR_NONE}\$ "
 }
  
