@@ -130,7 +130,7 @@ function parse_git_branch {
  
 function set_prompt() {
   git_prompt="$(parse_git_branch)"
-  export PS1="[\w]  ${git_prompt}\n${COLOR_NONE}\$ "
+  export PS1="[\w] ${git_prompt}\n${COLOR_NONE}\$ "
 }
  
 export PROMPT_COMMAND=set_prompt
