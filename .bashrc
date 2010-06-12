@@ -81,7 +81,7 @@ done
       BLUE="\[\033[0;34m\]"
      WHITE="\[\033[1;37m\]"
     PURPLE="\[\033[1;35m\]"
-      CYAN="\[\033[1;36m\]"      
+      CYAN="\[\033[1;36m\]"
 COLOR_NONE="\[\033[0m\]"
 
 LIGHTNING_BOLT="⚡"
@@ -104,12 +104,12 @@ function parse_git_branch {
     # Rebasing?
     toplevel=$(git rev-parse --show-toplevel 2> /dev/null)
     [[ -z "$toplevel" ]] && return
-    
+
     [[ -d "$toplevel/.git/rebase-merge" ]] && \
       echo "${PINK}(rebase in progress)${COLOR_NONE}"
     return
   fi
-  
+
   branch=${BASH_REMATCH[1]}
 
   # Dirty?
@@ -127,21 +127,21 @@ function parse_git_branch {
   elif [[ ${git_status} =~ ${diverge_pattern} ]]; then
     remote="${YELLOW}${UD_ARROW}"
   fi
-  
+
   echo "${remote_ff}${GREEN}(${branch})${COLOR_NONE}${remote}${git_is_dirty}${needs_push}${COLOR_NONE}"
 }
- 
+
 function set_prompt() {
   git_prompt="$(parse_git_branch)"
   export PS1="[\w] ${git_prompt}\n${COLOR_NONE}\$ "
 }
- 
+
 export PROMPT_COMMAND=set_prompt
 
 
 ## Functions
 
-git-root() 
+git-root()
 {
   root=$(git rev-parse --git-dir 2> /dev/null)
   if [[ "$root" == "" ]]; then root="."; fi
