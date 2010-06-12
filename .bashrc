@@ -112,24 +112,18 @@ function parse_git_branch {
     git_is_dirty=
   fi
 
-  # Do we need to push to origin?
-  git_log_linecount="$(git log --pretty=oneline origin/${branch}..${branch} 2> /dev/null | wc -l)"
-  if [[ ! ${git_log_linecount}} =~ " 0" ]]; then
-      needs_push="${WHITE}${RECYCLE}"
-  fi
-  
   # Are we ahead of, beind, or diverged from the remote?
   if [[ ${git_status} =~ ${remote_pattern_ahead} ]]; then
     remote="${YELLOW}${UP_ARROW}"
   elif [[ ${git_status} =~ ${remote_pattern_ff} ]]; then
-    remote="${WHITE}${FF_ARROW}"
+    remote_ff="${WHITE}${FF_ARROW}"
   elif [[ ${git_status} =~ ${remote_pattern_behind} ]]; then
     remote="${YELLOW}${DOWN_ARROW}"
   elif [[ ${git_status} =~ ${diverge_pattern} ]]; then
     remote="${YELLOW}${UD_ARROW}"
   fi
   
-  echo "${remote}${GREEN}(${branch})${COLOR_NONE}${git_is_dirty}${needs_push}${COLOR_NONE}"
+  echo "${remote_ff}${GREEN}(${branch})${COLOR_NONE}${remote}${git_is_dirty}${needs_push}${COLOR_NONE}"
 }
  
 function set_prompt() {
