@@ -82,6 +82,7 @@ done
      WHITE="\[\033[1;37m\]"
     PURPLE="\[\033[1;35m\]"
       CYAN="\[\033[1;36m\]"
+     BROWN="\[\033[0;33m\]"
 COLOR_NONE="\[\033[0m\]"
 
 LIGHTNING_BOLT="⚡"
@@ -132,8 +133,10 @@ function parse_git_branch {
 }
 
 function set_prompt() {
+  [[ -n $HOMEBREW_DEBUG_INSTALL ]] && \
+    homebrew_prompt="${BROWN}Homebrew:${COLOR_NONE} debugging ${HOMEBREW_DEBUG_INSTALL}\n"
   git_prompt="$(parse_git_branch)"
-  export PS1="[\w] ${git_prompt}\n${COLOR_NONE}\$ "
+  export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
 }
 
 export PROMPT_COMMAND=set_prompt
