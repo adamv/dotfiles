@@ -1,0 +1,25 @@
+#!/bin/bash
+branch_pattern="^# On branch ([^${IFS}]*)"
+remote_pattern_ff="# Your branch (.*) can be fast-forwarded."
+
+
+git_status="$(git status 2> /dev/null)"
+
+
+[[ ${git_status} =~ ${branch_pattern} ]] && \
+  branch=${BASH_REMATCH[1]}
+
+[[ -z $branch ]] && exit 1
+
+tracking=$(git config branch.$branch.remote)
+[[ -z $tracking ]] && exit 1
+
+git fetch $tracking $branch
+
+[[ ${git_status} =~ ${remote_pattern_ff} ]] || {
+  echo "Cannot be fast-forwarded."
+  exit 1
+}
+
+echo "Fast-forwarding..."
+git rebase $tracking/$branch
