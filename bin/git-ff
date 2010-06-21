@@ -1,23 +1,29 @@
 #!/bin/bash
 branch_pattern="^# On branch ([^${IFS}]*)"
-remote_pattern_ff="# Your branch (.*) can be fast-forwarded."
+remote_pattern_ff="# Your branch is (.*) and can be fast-forwarded."
 
 
 git_status="$(git status 2> /dev/null)"
 
-
 [[ ${git_status} =~ ${branch_pattern} ]] && \
   branch=${BASH_REMATCH[1]}
 
-[[ -z $branch ]] && exit 1
+[[ -z $branch ]] && {
+  echo "Not on a branch?"
+  exit 1
+}
 
 tracking=$(git config branch.$branch.remote)
-[[ -z $tracking ]] && exit 1
+[[ -z $tracking ]] && {
+  echo "No tracking branch specified for $branch."
+  echo "Use: git branch --set-upstream <local-branch> <remote>/<remote-branch>"
+  exit 1
+}
 
-git fetch $tracking $branch
+git fetch $tracking
 
 [[ ${git_status} =~ ${remote_pattern_ff} ]] || {
-  echo "Cannot be fast-forwarded."
+  echo "Can't be fast-forwarded, or nothing to ff."
   exit 1
 }
 
