@@ -1,7 +1,7 @@
 #!/bin/bash
 branch_pattern="^# On branch ([^${IFS}]*)"
 remote_pattern_ff="# Your branch is (.*) and can be fast-forwarded."
-
+diverge_pattern="# Your branch and (.*) have diverged,"
 
 git_status="$(git status 2> /dev/null)"
 
@@ -21,6 +21,12 @@ tracking=$(git config branch.$branch.remote)
 }
 
 git fetch $tracking
+
+
+[[ ${git_status} =~ ${diverge_pattern} ]] && {
+  echo "Your branch has diverged from upstream, can't ff."
+  exit 1
+}
 
 [[ ${git_status} =~ ${remote_pattern_ff} ]] || {
   echo "Can't be fast-forwarded, or nothing to ff."
