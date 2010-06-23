@@ -91,6 +91,8 @@ LIGHTNING_BOLT="⚡"
       UD_ARROW="↕"
       FF_ARROW="→"
        RECYCLE="♺"
+        MIDDOT="•"
+     PLUSMINUS="±"
 
 
 function parse_git_branch {
@@ -115,7 +117,25 @@ function parse_git_branch {
 
   # Dirty?
   if [[ ! ${git_status} =~ "working directory clean" ]]; then
-    git_is_dirty="${RED}${LIGHTNING_BOLT}"
+    [[ ${git_status} =~ "modified:" ]] && {
+      git_is_dirty="${RED}${LIGHTNING_BOLT}"
+    }
+
+    [[ ${git_status} =~ "Untracked files" ]] && {
+      git_is_dirty="${git_is_dirty}${WHITE}${MIDDOT}"
+    }
+
+    [[ ${git_status} =~ "new file:" ]] && {
+      git_is_dirty="${git_is_dirty}${LT_GREEN}+"
+    }
+
+    [[ ${git_status} =~ "deleted:" ]] && {
+      git_is_dirty="${git_is_dirty}${RED}-"
+    }
+
+    [[ ${git_status} =~ "renamed:" ]] && {
+      git_is_dirty="${git_is_dirty}${YELLOW}→"
+    }
   fi
 
   # Are we ahead of, beind, or diverged from the remote?
@@ -129,7 +149,7 @@ function parse_git_branch {
     remote="${YELLOW}${UD_ARROW}"
   fi
 
-  echo "${remote_ff}${GREEN}(${branch})${COLOR_NONE}${remote}${git_is_dirty}${needs_push}${COLOR_NONE}"
+  echo "${remote}${remote_ff}${GREEN}(${branch})${COLOR_NONE}${git_is_dirty}${COLOR_NONE}"
 }
 
 function set_prompt() {
