@@ -108,7 +108,7 @@ function parse_git_branch {
     toplevel=$(git rev-parse --show-toplevel 2> /dev/null)
     [[ -z "$toplevel" ]] && return
 
-    [[ -d "$toplevel/.git/rebase-merge" ]] && \
+    [[ -d "$toplevel/.git/rebase-merge" || -d "$toplevel/.git/rebase-apply" ]] && \
       echo "${PINK}(rebase in progress)${COLOR_NONE}"
     return
   fi
