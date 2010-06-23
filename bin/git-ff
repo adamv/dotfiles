@@ -3,16 +3,12 @@ branch_pattern="^# On branch ([^${IFS}]*)"
 remote_pattern_ff="# Your branch is (.*) and can be fast-forwarded."
 diverge_pattern="# Your branch and (.*) have diverged,"
 
-git_status="$(git status 2> /dev/null)"
-
-[[ ${git_status} =~ ${branch_pattern} ]] && \
-  branch=${BASH_REMATCH[1]}
-
-[[ -z $branch ]] && {
+[[ $(git status 2> /dev/null) =~ ${branch_pattern} ]] || {
   echo "Not on a branch?"
   exit 1
 }
 
+branch=${BASH_REMATCH[1]}
 tracking=$(git config branch.$branch.remote)
 [[ -z $tracking ]] && {
   echo "No tracking branch specified for $branch."
@@ -23,6 +19,7 @@ tracking=$(git config branch.$branch.remote)
 git fetch $tracking
 
 
+git_status="$(git status 2> /dev/null)"
 [[ ${git_status} =~ ${diverge_pattern} ]] && {
   echo "Your branch has diverged from upstream, can't ff."
   exit 1
