@@ -6,10 +6,11 @@
   ui = auto
 
 [alias]
-  b = checkout -b
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  b    = checkout -b
+  lg   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   pick = cherry-pick -s
-  wip = commit -a -m 'wip'
+  sb   = status -sb
+  wip  = commit -a -m 'wip'
 
 [push]
   default = current
