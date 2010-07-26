@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # Cherry-pick a commit from GitHub URLs like:
 # http://github.com/adamv/dotfiles/commit/2f8c64fb6bd69787943b691212d8a80d42de0614
