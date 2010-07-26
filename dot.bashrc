@@ -6,7 +6,6 @@ export GIT_EDITOR='mate -wl1'
 
 
 ## History control
-export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
 shopt -s histappend
 
@@ -195,9 +194,9 @@ pman()
    man -t "${1}" | open -f -a /Applications/Preview.app
 }
 
-exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
 function pgrep() {
-    find . -maxdepth 1 -mindepth 1| egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
+  local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
+  find . -maxdepth 1 -mindepth 1| egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
 }
 
 
