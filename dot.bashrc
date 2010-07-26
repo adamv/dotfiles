@@ -203,3 +203,9 @@ function pgrep() {
 ## Source any local additions
 ## (To keep work & home separate.)
 [[ -f ~/.bash_local ]] && . ~/.bash_local
+
+venv=`which virtualenvwrapper.sh`
+[[ -n "$venv" ]] && {
+    export WORKON_HOME=$HOME/env
+    source $venv
+}
