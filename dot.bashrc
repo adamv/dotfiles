@@ -171,7 +171,7 @@ export PROMPT_COMMAND=set_prompt
 git-root()
 {
   root=$(git rev-parse --git-dir 2> /dev/null)
-  if [[ "$root" == "" ]]; then root="."; fi
+  [[ -z "$root" ]] && root="."
   dirname $root
 }
 
@@ -196,7 +196,7 @@ pman()
 
 function pgrep() {
   local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
-  find . -maxdepth 1 -mindepth 1| egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
+  find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
 }
 
 
