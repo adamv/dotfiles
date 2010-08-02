@@ -9,6 +9,7 @@
   b    = checkout -b
   lg   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   pick = cherry-pick -s
+  remaster = rebase master
   sb   = status -sb
   wip  = commit -a -m 'wip'
 
