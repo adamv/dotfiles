@@ -65,7 +65,8 @@ set completion-ignore-case On
 for comp in \
     /usr/local/etc/bash_completion.d/git-completion.bash \
     $HOME/homebrew/Library/Contributions/brew_bash_completion.sh \
-    $HOME/source/custom-django/extras/django_bash_completion
+    $HOME/source/custom-django/extras/django_bash_completion \
+    $HOME/bin/fab_completion.bash
 do
     [[ -e $comp ]] && source $comp
 done
