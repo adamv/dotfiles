@@ -58,6 +58,8 @@ alias sizes='du -h -d1'
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
 
+alias flushdns="dscacheutil -flushcache"
+
 
 ## Tab Completions
 set completion-ignore-case On
