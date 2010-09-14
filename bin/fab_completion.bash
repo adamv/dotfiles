@@ -9,7 +9,7 @@ _fab_completion() {
 
     local cur="${COMP_WORDS[COMP_CWORD]}"
 
-    tasks=$(fab --list | sed -e '/^[^ ]/d' | awk '{print $1}')
+    tasks=$(fab --shortlist)
     COMPREPLY=( $(compgen -W "${tasks}" -- ${cur}) )
 }
 
