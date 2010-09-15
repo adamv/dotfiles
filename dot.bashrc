@@ -27,12 +27,27 @@ do
 done
 
 
-# If not running interactively, don't do anything
+# If not running interactively, don't do anything else
 [ -z "$PS1" ] && return
 
 
 ## Python stuff
 export VIRTUALENV_USE_DISTRIBUTE
+
+venv=`which virtualenvwrapper.sh`
+[[ -n "$venv" ]] && {
+    export WORKON_HOME=$HOME/env
+    source $venv
+}
+
+
+function _pip_completion {
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
+
 
 ## Colors and ls
 export LSCOLORS=hxfxcxdxbxegedabagHxHx
@@ -66,12 +81,13 @@ set completion-ignore-case On
 for comp in \
     /usr/local/etc/bash_completion \
     /usr/local/etc/bash_completion.d/git-completion.bash \
-    $HOME/homebrew/Library/Contributions/brew_bash_completion.sh \
-    $HOME/source/custom-django/extras/django_bash_completion \
-    $HOME/bin/fab_completion.bash
+    ~/homebrew/Library/Contributions/brew_bash_completion.sh \
+    ~/source/custom-django/extras/django_bash_completion
 do
     [[ -e $comp ]] && source $comp
 done
+
+source ~/.dotfiles/completion_scripts/fab_completion.bash
 
 
 ## Custom prompt
@@ -202,17 +218,3 @@ function pgrep {
 ## Source any local additions
 ## (To keep work & home separate.)
 [[ -f ~/.bash_local ]] && . ~/.bash_local
-
-venv=`which virtualenvwrapper.sh`
-[[ -n "$venv" ]] && {
-    export WORKON_HOME=$HOME/env
-    source $venv
-}
-
-
-function _pip_completion {
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-}
-complete -o default -F _pip_completion pip
