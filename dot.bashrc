@@ -176,13 +176,28 @@ function parse_git_branch {
   echo "${remote}${remote_ff}${GREEN}(${branch})${COLOR_NONE}${git_is_dirty}${COLOR_NONE}"
 }
 
+function setWindowTitle {
+  case $TERM in
+    *xterm*|ansi)
+      echo -n -e "\033]0;$*\007"
+      ;;
+    esac
+}
+
 function set_prompt {
   [[ -n $HOMEBREW_DEBUG_INSTALL ]] && \
     homebrew_prompt="${BROWN}Homebrew:${COLOR_NONE} debugging ${HOMEBREW_DEBUG_INSTALL}\n"
-  git_prompt="$(parse_git_branch)"
-  export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
-}
 
+  git_prompt="$(parse_git_branch)"
+
+  export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
+
+  # Domain is stripped from hostname
+  [[ "$HOSTNAME" != "adamv-desktop.local" ]] && \
+    this_host="${HOSTNAME%%.*}:"
+
+  setWindowTitle "${this_host}${PWD/$HOME/~}"
+}
 export PROMPT_COMMAND=set_prompt
 
 
