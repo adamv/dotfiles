@@ -21,7 +21,7 @@ for another_bin in \
     $HOME/.gem/ruby/1.8/bin \
     $HOME/homebrew/Cellar/python/2.6.5/bin \
     $HOME/homebrew/Library/Contributions/examples \
-    "/Library/Application Support/VMware Fusion"
+    "/Library/Application\ Support/VMware\ Fusion"
 do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
