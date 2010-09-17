@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+# This script will try to fast-forward the current branch
+# on to master, and will then delete the original branch.
+
+# The "-e" is important, so that the 3 git commands
+# at the bottom won't all run if one of them fails.
+
+branch_pattern="^# On branch ([^${IFS}]*)"
+remote_pattern_ff="# Your branch is (.*) and can be fast-forwarded."
+diverge_pattern="# Your branch and (.*) have diverged,"
+
+[[ $(git status 2> /dev/null) =~ ${branch_pattern} ]] || {
+  echo "Not on a branch?"
+  exit 1
+}
+
+branch=${BASH_REMATCH[1]}
+
+[[ $branch == 'master' ]] && {
+  echo "Already on master?"
+  exit 1
+}
+
+git checkout master
+git merge $branch --ff-only
+git branch -d $branch
