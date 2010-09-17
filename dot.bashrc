@@ -14,7 +14,7 @@ shopt -s histappend
 # Put /usr/local/{sbin,bin} first
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-# bin folders from ~, gems, and Homebrew examples
+# bin folders from ~, gems, and Homebrew
 for another_bin in \
     $HOME/bin \
     $HOME/bin/extras \
@@ -29,24 +29,6 @@ done
 
 # If not running interactively, don't do anything else
 [ -z "$PS1" ] && return
-
-
-## Python stuff
-export VIRTUALENV_USE_DISTRIBUTE
-
-venv=`which virtualenvwrapper.sh`
-[[ -n "$venv" ]] && {
-    export WORKON_HOME=$HOME/env
-    source $venv
-}
-
-
-function _pip_completion {
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-}
-complete -o default -F _pip_completion pip
 
 
 ## Colors and ls
@@ -88,6 +70,17 @@ do
 done
 
 source ~/.dotfiles/completion_scripts/fab_completion.bash
+source ~/.dotfiles/completion_scripts/pip_completion.bash
+
+
+## Python stuff
+export VIRTUALENV_USE_DISTRIBUTE
+
+venv=`which virtualenvwrapper.sh`
+[[ -n "$venv" ]] && {
+    export WORKON_HOME=$HOME/env
+    source $venv
+}
 
 
 ## Custom prompt
@@ -232,4 +225,4 @@ function pgrep {
 
 ## Source any local additions
 ## (To keep work & home separate.)
-[[ -f ~/.bash_local ]] && . ~/.bash_local
+[[ -f ~/.bash_local ]] && source ~/.bash_local
