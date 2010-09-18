@@ -22,3 +22,6 @@
 
 [github]
 	user = adamv
+
+[git-tmbundle]
+	gitx-path = /usr/local/bin/gitx
