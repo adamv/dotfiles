@@ -174,7 +174,7 @@ function setWindowTitle {
     *xterm*|ansi)
       echo -n -e "\033]0;$*\007"
       ;;
-    esac
+  esac
 }
 
 function set_prompt {
@@ -186,8 +186,14 @@ function set_prompt {
   export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
 
   # Domain is stripped from hostname
-  [[ "$HOSTNAME" != "adamv-desktop.local" ]] && \
-    this_host="${HOSTNAME%%.*}:"
+  case $HOSTNAME in
+    adamv-desktop.local|Flangymobile08.local)
+      this_host=
+      ;;
+    *)
+      this_host="${HOSTNAME%%.*}:"
+      ;;
+  esac
 
   setWindowTitle "${this_host}${PWD/$HOME/~}"
 }
