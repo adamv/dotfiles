@@ -213,7 +213,7 @@ function git-root {
 
 # Reveal current or provided folder in Path Finder
 function pf {
-  target_path=$(cd ${1:-$PWD} && PWD)
+  target_path="$(cd ${1:-"$PWD"} && PWD)"
   osascript<<END
 tell app "Path Finder"
   reveal POSIX file("$target_path")
