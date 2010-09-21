@@ -19,12 +19,16 @@ for another_bin in \
     $HOME/bin \
     $HOME/bin/extras \
     $HOME/.gem/ruby/1.8/bin \
-    $HOME/homebrew/Cellar/python/2.6.5/bin \
-    $HOME/homebrew/Library/Contributions/examples \
     "/Library/Application\ Support/VMware\ Fusion"
 do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
+
+brew=`which brew`
+if [[ -n $brew ]]; then
+  python_bin=`brew --prefix python`/bin
+  [[ -e $python_bin ]] && export PATH=$python_bin:$PATH
+fi
 
 
 # If not running interactively, don't do anything else
