@@ -21,7 +21,7 @@
   excludesfile = ~/.gitignore
 
 [github]
-	user = adamv
+  user = adamv
 
 [git-tmbundle]
-	gitx-path = /usr/local/bin/gitx
+  gitx-path = /usr/local/bin/gitx
