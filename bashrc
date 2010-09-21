@@ -1,5 +1,6 @@
-# Adam Vandenberg's bashrc
-# Cobbled together from the Internet
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
 
 export EDITOR='mate'
 export GIT_EDITOR='mate -wl1'
@@ -29,10 +30,6 @@ if [[ -n $brew ]]; then
   python_bin=`brew --prefix python`/bin
   [[ -e $python_bin ]] && export PATH=$python_bin:$PATH
 fi
-
-
-# If not running interactively, don't do anything else
-[ -z "$PS1" ] && return
 
 
 ## Colors and ls
@@ -231,8 +228,3 @@ function pgrep {
   local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
   find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
 }
-
-
-## Source any local additions
-## (To keep work & home separate.)
-[[ -f ~/.bash_local ]] && source ~/.bash_local
