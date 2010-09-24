@@ -25,9 +25,11 @@ do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
 
-brew=`which brew`
-if [[ -n $brew ]]; then
-  python_bin=`brew --prefix python`/bin
+# Find a Homebrew-built Python
+# Can't use "--prefix" because we might not have the latest version installed
+if [[ -n `which brew` ]]; then
+  python_bin=$(brew --cellar python)/*/bin
+  python_bin=`echo $python_bin`
   [[ -e $python_bin ]] && export PATH=$python_bin:$PATH
 fi
 
