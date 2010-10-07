@@ -1,0 +1,22 @@
+#!/bin/bash
+branch_pattern="^# On branch ([^${IFS}]*)"
+
+[[ -z $1 ]] && {
+  echo "Usage:"
+  echo "  git track <remote>"
+  exit 1
+}
+
+[[ $(git status 2> /dev/null) =~ ${branch_pattern} ]] || {
+  echo "Not on a branch?"
+  exit 1
+}
+
+branch=${BASH_REMATCH[1]}
+tracking=$(git config branch.$branch.remote)
+[[ -z $tracking ]] || {
+  echo "$branch is already tracking $tracking"
+  exit 1
+}
+
+git branch --set-upstream $branch $1/$branch
