@@ -25,14 +25,18 @@ do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
 
-# Find a Homebrew-built Python
-# Can't use "--prefix" because we might not have the latest version installed
 if [[ -n `which brew` ]]; then
+  # Find a Homebrew-built Python
   python_bin=$(brew --cellar python)/*/bin
   python_bin=`echo $python_bin`
   [[ -e $python_bin ]] && export PATH=$python_bin:$PATH
-fi
 
+
+  # Find a Homebrew-built Ruby
+  ruby_bin=$(brew --cellar ruby)/*/bin
+  ruby_bin=`echo $ruby_bin`
+  [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
+fi
 
 ## Colors and ls
 export LSCOLORS=hxfxcxdxbxegedabagHxHx
