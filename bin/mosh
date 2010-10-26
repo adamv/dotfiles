@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-import sys, os
+import os
 import re
+import sys
 from subprocess import Popen, PIPE
+
 
 def run(command, print_command=False):
     if print_command: print command
@@ -18,7 +20,7 @@ Usage:
   mosh [user@]hostname[:/[additional_path]] [volume_name] [mount_point] 
 
 volume_name will default to <hostname>
-mount_point will default to ~/.mounts/<hostname>
+mount_point will default to ~/.mnt/<hostname>
 """.strip()
 
     _script_name = sys.argv.pop(0)
@@ -52,7 +54,7 @@ def main():
 
     validate_args()
 
-    MOUNT_PREFIX = os.environ.get("MOUNT_PREFIX", "~/.mounts/")
+    MOUNT_PREFIX = os.environ.get("MOUNT_PREFIX", os.path.expanduser("~/.mnt/"))
 
     target = sys.argv.pop(0)
     m = re.search(RE_TARGET, target)
@@ -78,7 +80,7 @@ def main():
 
     # Basic mount command
     sshs_cmd = "sshfs %s %s -oallow_other,auto_cache,reconnect,volname=%s" % (target, mount_point, volume_name)
-    
+
     # See if a custom icon is defined for this host
     drive_icon = get_drive_icon(hostname)
     if drive_icon:
@@ -88,4 +90,3 @@ def main():
     run(sshs_cmd, True)
 
 main()
-
