@@ -50,7 +50,6 @@ alias lla="ls -a -l"
 alias lm='ls -la | less'
 
 
-
 ## Aliases
 alias cls='clear'
 alias edit='mate'
@@ -63,6 +62,13 @@ alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-r
 
 alias flushdns="dscacheutil -flushcache"
 
+function show-empty-folders {
+    find . -depth -type d -empty
+}
+
+function kill-empty-folders {
+    find . -depth -type d -empty -exec rmdir "{}" \;
+}
 
 ## Tab Completions
 set completion-ignore-case On
