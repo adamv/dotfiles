@@ -62,6 +62,8 @@ alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-r
 
 alias flushdns="dscacheutil -flushcache"
 
+alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
+
 function show-empty-folders {
     find . -depth -type d -empty
 }
