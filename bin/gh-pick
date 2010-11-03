@@ -13,7 +13,7 @@ if [[ -z $url ]]; then
   exit 99
 fi
 
-url_re="http://github.com/([^/]*)/([^/]*)/commit/(.*)"
+url_re="https?://github.com/([^/]*)/([^/]*)/commit/(.*)"
 if [[ ! $url =~ $url_re ]]; then
   echo "Usage:"
   echo "    $my_name <URL-for-GitHub-commit>"
