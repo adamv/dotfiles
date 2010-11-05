@@ -239,6 +239,11 @@ function pman {
    man -t "${1}" | open -f -a /Applications/Preview.app
 }
 
+# Open a manpage in the browser
+function bman {
+  man "${1}" | man2html | browser
+}
+
 function pgrep {
   local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
   find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
