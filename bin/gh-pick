@@ -7,16 +7,23 @@
 my_name=`basename $0`
 
 url=$1
+if [[ $url = '.' ]]; then
+  url=`pbpaste`
+fi
+
 if [[ -z $url ]]; then
   echo "Usage:"
   echo "    $my_name <URL-for-GitHub-commit>"
+  echo "    $my_name . # Copies url from clipboard."
   exit 99
 fi
+
 
 url_re="https?://github.com/([^/]*)/([^/]*)/commit/(.*)"
 if [[ ! $url =~ $url_re ]]; then
   echo "Usage:"
   echo "    $my_name <URL-for-GitHub-commit>"
+  echo "    $my_name . # Copies url from clipboard."
   exit 99
 fi
 
