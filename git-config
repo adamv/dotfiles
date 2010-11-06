@@ -9,6 +9,7 @@
   a    = commit --amend
   b    = checkout -b
   lg   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  p    = !gh-pick
   pick = cherry-pick -s
   remaster = rebase master
   rei  = rebase -i master
