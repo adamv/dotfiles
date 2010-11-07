@@ -65,6 +65,8 @@ alias flushdns="dscacheutil -flushcache"
 alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
 alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
 
+alias gh="gh-pick"
+
 function show-empty-folders {
     find . -depth -type d -empty
 }
