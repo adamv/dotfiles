@@ -141,7 +141,7 @@ function parse_git_branch {
     [[ -d "$toplevel/.git/rebase-merge" || -d "$toplevel/.git/rebase-apply" ]] && {
       sha_file="$toplevel/.git/rebase-merge/stopped-sha"
       [[ -e "$sha_file" ]] && {
-        sha=`cat ${sha_file}`
+        sha=`cat "${sha_file}"`
       }
       echo "${PINK}(rebase in progress)${COLOR_NONE} ${sha}"
     }
