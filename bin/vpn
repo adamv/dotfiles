@@ -24,7 +24,7 @@ VPN_CONNECTION="VPN Amazing Society"
 _connect() {
 osascript<<END > /dev/null
   tell application "System Events"
-  	connect service "${VPN_CONNECTION}" of current location of network preferences
+    connect service "${VPN_CONNECTION}" of current location of network preferences
   end tell
 END
 }
@@ -33,7 +33,7 @@ END
 _disconnect() {
 osascript<<END > /dev/null
   tell application "System Events"
-  	disconnect service "${VPN_CONNECTION}" of current location of network preferences
+    disconnect service "${VPN_CONNECTION}" of current location of network preferences
   end tell
 END
 }
@@ -42,17 +42,20 @@ END
 _status() {
 osascript<<END
   tell application "System Events"
-  	set VPN to service "${VPN_CONNECTION}" of current location of network preferences
-  	get connected of current configuration of VPN
+    set VPN to service "${VPN_CONNECTION}" of current location of network preferences
+    get connected of current configuration of VPN
   end tell
 END
 }
 
 
-if [[ $action == 'up' ]]; then
-  _connect
-elif [[ $action == 'down' ]]; then
-  _disconnect
-elif [[ $action == 'status' ]]; then
-  _status
-fi
+case "$action" in
+  up)
+    _connect;;
+
+  down)
+    _disconnect;;
+
+  stat|status)
+    _status;;
+esac
