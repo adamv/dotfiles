@@ -1,5 +1,5 @@
 #!/bin/bash
-#/ Usage: vpn up|down|status
+#/ Usage: vpn up|down|status <vpn-connection-name>
 #/
 #/  up:     launch (hard-coded) VPN connection
 #/  down:   drop VPN connection
@@ -12,19 +12,19 @@ usage() {
 }
 
 
-if [[ $# -lt 1 ]]; then
+if [[ $# -lt 2 ]]; then
   usage
 fi
 
 
 action=$1;shift
-VPN_CONNECTION="VPN Amazing Society"
+vpn_connection=$1;shift
 
 
 _connect() {
 osascript<<END > /dev/null
   tell application "System Events"
-    connect service "${VPN_CONNECTION}" of current location of network preferences
+    connect service "${vpn_connection}" of current location of network preferences
   end tell
 END
 }
@@ -33,7 +33,7 @@ END
 _disconnect() {
 osascript<<END > /dev/null
   tell application "System Events"
-    disconnect service "${VPN_CONNECTION}" of current location of network preferences
+    disconnect service "${vpn_connection}" of current location of network preferences
   end tell
 END
 }
@@ -42,7 +42,7 @@ END
 _status() {
 osascript<<END
   tell application "System Events"
-    set VPN to service "${VPN_CONNECTION}" of current location of network preferences
+    set VPN to service "${vpn_connection}" of current location of network preferences
     get connected of current configuration of VPN
   end tell
 END

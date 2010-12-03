@@ -1,0 +1,26 @@
+#!/bin/bash
+#/ Usage: work-vpn up|down|status
+
+usage() {
+    grep '^#/' <"$0" | cut -c4-
+    exit 0
+}
+
+
+if [[ $# -lt 1 ]]; then
+  usage
+fi
+
+
+action=$1;shift
+
+case $action in
+    up)
+        toggle-extra vpn on;;
+
+    down)
+        toggle-extra vpn off;;
+esac
+
+vpn $action "VPN Amazing Society"
+
