@@ -1,0 +1,58 @@
+#!/bin/bash
+#/ Usage: vpn up|down|status
+#/
+#/  up:     launch (hard-coded) VPN connection
+#/  down:   drop VPN connection
+#/  status: connected?
+
+
+usage() {
+    grep '^#/' <"$0" | cut -c4-
+    exit 0
+}
+
+
+if [[ $# -lt 1 ]]; then
+  usage
+fi
+
+
+action=$1;shift
+VPN_CONNECTION="VPN Amazing Society"
+
+
+_connect() {
+osascript<<END > /dev/null
+  tell application "System Events"
+  	connect service "${VPN_CONNECTION}" of current location of network preferences
+  end tell
+END
+}
+
+
+_disconnect() {
+osascript<<END > /dev/null
+  tell application "System Events"
+  	disconnect service "${VPN_CONNECTION}" of current location of network preferences
+  end tell
+END
+}
+
+
+_status() {
+osascript<<END
+  tell application "System Events"
+  	set VPN to service "${VPN_CONNECTION}" of current location of network preferences
+  	get connected of current configuration of VPN
+  end tell
+END
+}
+
+
+if [[ $action == 'up' ]]; then
+  _connect
+elif [[ $action == 'down' ]]; then
+  _disconnect
+elif [[ $action == 'status' ]]; then
+  _status
+fi
