@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]]; then
+  which_extra=VPN
+else
+  which_extra=$1;shift
+fi
+
+prefs=~/Library/Preferences/com.apple.systemuiserver.plist
+
+extra_index=$(plutil -convert xml1 -o - $prefs | ./extra-index $which_extra)
+if [[ $extra_index == "-1" ]]; then
+  echo "Extra not running - TODO: launch"
+  app="/System/Library/CoreServices/Menu Extras/$which_extra.menu"
+  if [[ -e "$app" ]]; then
+    open "$app"
+  else
+    echo "Extra not found?"
+    exit 1
+  fi
+else
+  # kill
+  /usr/libexec/PlistBuddy -c "Delete :menuExtras:$extra_index" $prefs
+  killall SystemUIServer -HUP
+fi
