@@ -94,13 +94,6 @@ source ~/.dotfiles/completion_scripts/pip_completion.bash
 ## Python stuff
 export VIRTUALENV_USE_DISTRIBUTE
 
-venv=`which virtualenvwrapper.sh`
-[[ -n "$venv" ]] && {
-    export WORKON_HOME=$HOME/env
-    source $venv
-}
-
-
 ## Custom prompt
 # Colors
        RED="\[\033[0;31m\]"
