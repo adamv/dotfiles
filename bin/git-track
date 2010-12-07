@@ -1,11 +1,11 @@
 #!/bin/bash
 branch_pattern="^# On branch ([^${IFS}]*)"
 
-[[ -z $1 ]] && {
-  echo "Usage:"
-  echo "  git track <remote>"
-  exit 1
-}
+if [[ -n $1 ]]; then
+  remote=$1;shift
+else
+  remote='origin'
+fi
 
 [[ $(git status 2> /dev/null) =~ ${branch_pattern} ]] || {
   echo "Not on a branch?"
@@ -19,4 +19,4 @@ tracking=$(git config branch.$branch.remote)
   exit 1
 }
 
-git branch --set-upstream $branch $1/$branch
+git branch --set-upstream $branch $remote/$branch
