@@ -93,6 +93,7 @@ source ~/.dotfiles/completion_scripts/pip_completion.bash
 
 ## Python stuff
 export VIRTUALENV_USE_DISTRIBUTE
+export WORKON_HOME=$HOME/env
 
 ## Custom prompt
 # Colors
