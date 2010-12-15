@@ -11,6 +11,11 @@ usage() {
     exit 0
 }
 
+die() {
+  echo $1
+  exit 1
+}
+
 
 if [[ $# -lt 2 ]]; then
   usage
@@ -50,12 +55,15 @@ END
 
 
 case "$action" in
-  up)
+  on|up)
     _connect;;
 
-  down)
+  off|down)
     _disconnect;;
 
   stat|status)
     _status;;
+
+  *)
+    die "Unknown option $action"
 esac
