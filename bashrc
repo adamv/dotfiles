@@ -67,6 +67,11 @@ alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
 
 alias gh="gh-pick"
 
+
+alias fhome="figit on -x 1600 -y 1000"
+alias fwork="figit off"
+
+
 function show-empty-folders {
     find . -depth -type d -empty
 }
