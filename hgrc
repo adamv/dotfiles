@@ -1,2 +1,3 @@
 [ui]
+editor = mate -wl1
 username = Adam Vandenberg <flangy@gmail.com>
