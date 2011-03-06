@@ -38,6 +38,11 @@ if [[ -n `which brew` ]]; then
   [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
 fi
 
+
+# No ._ files in archives please
+export COPYFILE_DISABLE=true
+
+
 ## Colors and ls
 export LSCOLORS=hxfxcxdxbxegedabagHxHx
 
