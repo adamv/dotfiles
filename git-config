@@ -4,6 +4,7 @@
 
 [color]
   ui = auto
+	diff = auto
 
 [alias]
   a    = commit --amend
