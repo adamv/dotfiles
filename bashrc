@@ -64,6 +64,8 @@ alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 alias sizes='du -h -d1'
 
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
+alias go-themes="cd ~/Library/Application\ Support/TextMate/Themes/"
+
 alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
 
 alias flushdns="dscacheutil -flushcache"
