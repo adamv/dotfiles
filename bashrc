@@ -44,11 +44,7 @@ fi
 export COPYFILE_DISABLE=true
 
 
-## Colors and ls
-# export LSCOLORS=hxfxcxdxbxegedabagHxHx
-
-# -G = enable colors
-alias ls="ls -G"
+#  ls aliases
 alias ll="ls -l -h"
 alias la="ls -a"
 alias l="ls"
