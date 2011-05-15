@@ -104,6 +104,9 @@ source ~/.dotfiles/completion_scripts/pip_completion.bash
 export VIRTUALENV_USE_DISTRIBUTE
 export WORKON_HOME=$HOME/env
 
+export SCALA_HOME=$(brew --prefix scala)/libexec
+export PATH=$SCALA_HOME:$PATH
+
 ## Custom prompt
 # Colors
        RED="\[\033[0;31m\]"
