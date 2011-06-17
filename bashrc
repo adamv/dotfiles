@@ -18,6 +18,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # bin folders from ~, gems, and Homebrew
 for another_bin in \
     $HOME/bin \
+    $HOME/bin-local \
     $HOME/bin/extras \
     $HOME/.gem/ruby/1.8/bin \
     "/Library/Application\ Support/VMware\ Fusion"
