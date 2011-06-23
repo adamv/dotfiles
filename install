@@ -20,4 +20,5 @@ relink .bashrc ~/.dotfiles/bashrc
 relink .gitconfig ~/.dotfiles/git-config
 relink .gitignore ~/.dotfiles/git-ignore-global
 relink .hgrc ~/.dotfiles/hgrc
+relink .inputrc ~/.dotfiles/inputrc
 relink bin ~/.dotfiles/bin

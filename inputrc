@@ -1,0 +1,4 @@
+## Readline behavior
+# Complete symlinks to folders with trailing /
+set mark-directories On
+set mark-symlinked-directories On
