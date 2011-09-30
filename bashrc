@@ -208,17 +208,7 @@ function set_prompt {
 
   export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
 
-  # Domain is stripped from hostname
-  case $HOSTNAME in
-    adamv-desktop.local|Flangymobile08.local)
-      this_host=
-      ;;
-    *)
-      this_host="${HOSTNAME%%.*}:"
-      ;;
-  esac
-
-  setWindowTitle "${this_host}${PWD/$HOME/~}"
+  setWindowTitle "${PWD/$HOME/~}"
 }
 export PROMPT_COMMAND=set_prompt
 
