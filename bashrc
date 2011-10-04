@@ -25,6 +25,9 @@ do
     [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
 
+# Move cache out of home folder
+export HOMEBREW_CACHE=/usr/local/homebrew-cache
+
 if [[ -n `which brew` ]]; then
   # Find a Homebrew-built Python
   python_bin=$(brew --cellar python)/*/bin
