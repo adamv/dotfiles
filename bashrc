@@ -17,12 +17,11 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # bin folders from ~, gems, and Homebrew
 for another_bin in \
-    $HOME/bin \
-    $HOME/bin-local \
-    $HOME/bin/extras \
-    $HOME/.gem/ruby/1.8/bin
+  $HOME/bin \
+  $HOME/bin-local \
+  $HOME/bin/extras
 do
-    [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
+  [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
 
 # Move cache out of home folder
@@ -90,10 +89,10 @@ function kill-empty-folders {
 set completion-ignore-case On
 
 for comp in \
-    /usr/local/etc/bash_completion \
-    /usr/local/etc/bash_completion.d/git-completion.bash \
-    ~/homebrew/Library/Contributions/brew_bash_completion.sh \
-    ~/source/custom-django/extras/django_bash_completion
+  /usr/local/etc/bash_completion \
+  /usr/local/etc/bash_completion.d/git-completion.bash \
+  ~/homebrew/Library/Contributions/brew_bash_completion.sh \
+  ~/source/custom-django/extras/django_bash_completion
 do
     [[ -e $comp ]] && source $comp
 done
@@ -105,9 +104,6 @@ source ~/.dotfiles/completion_scripts/pip_completion.bash
 ## Python stuff
 export VIRTUALENV_USE_DISTRIBUTE
 export WORKON_HOME=$HOME/env
-
-export SCALA_HOME=$(brew --prefix scala)/libexec
-export PATH=$SCALA_HOME:$PATH
 
 ## Custom prompt
 # Colors
