@@ -105,6 +105,11 @@ source ~/.dotfiles/completion_scripts/pip_completion.bash
 export VIRTUALENV_USE_DISTRIBUTE
 export WORKON_HOME=$HOME/env
 
+
+## Android stuff
+export ANDROID_SDK_ROOT=/Users/adamv/homebrew/Cellar/android-sdk/r18
+
+
 ## Custom prompt
 # Colors
        RED="\[\033[0;31m\]"
