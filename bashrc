@@ -19,7 +19,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 for another_bin in \
   $HOME/bin \
   $HOME/bin-local \
-  $HOME/bin/extras
+  $HOME/bin/extras \
+  /usr/texbin
 do
   [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
