@@ -39,7 +39,7 @@ if [[ -n `which brew` ]]; then
   [[ -e /usr/local/share/python ]] && export PATH=/usr/local/share/python:$PATH
 
   # Find a Homebrew-built Ruby
-  ruby_bin=$(brew --cellar ruby)/*/bin
+  ruby_bin=$(brew --prefix ruby)/bin
   ruby_bin=`echo $ruby_bin`
   [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
 fi
