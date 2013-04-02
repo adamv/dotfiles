@@ -27,7 +27,7 @@ done
 # Move cache out of home folder
 export HOMEBREW_CACHE=/usr/local/homebrew-cache
 # I don't like fun
-export HOMEBREW_NO_EMOJI=1
+export HOMEBREW_NO_EMOJI='1'
 
 if [[ -n `which brew` ]]; then
   # Find a Homebrew-built Python
