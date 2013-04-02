@@ -15,7 +15,6 @@ shopt -s histappend
 # Put /usr/local/{sbin,bin} first
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-# bin folders from ~, gems, and Homebrew
 for another_bin in \
   $HOME/bin \
   $HOME/bin-local \
@@ -66,18 +65,12 @@ alias sizes='du -h -d1'
 alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
 alias go-themes="cd ~/Library/Application\ Support/TextMate/Themes/"
 
-alias firefox-dev="~/Applications/Minefield.app/Contents/MacOS/firefox-bin -no-remote -P dev &"
-
 alias flushdns="dscacheutil -flushcache"
 
 alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
 alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
 
 alias gh="gh-pick"
-
-
-alias fhome="figit on -x 1600 -y 1000"
-alias fwork="figit off"
 
 
 function show-empty-folders {
@@ -98,18 +91,6 @@ for comp in \
 do
     [[ -e $comp ]] && source $comp
 done
-
-source ~/.dotfiles/completion_scripts/fab_completion.bash
-source ~/.dotfiles/completion_scripts/pip_completion.bash
-
-
-## Python stuff
-export VIRTUALENV_USE_DISTRIBUTE
-export WORKON_HOME=$HOME/env
-
-
-## Android stuff
-export ANDROID_SDK_ROOT=/Users/adamv/homebrew/Cellar/android-sdk/r18
 
 
 ## Custom prompt
