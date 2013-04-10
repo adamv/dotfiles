@@ -43,6 +43,7 @@ if [[ -n `which brew` ]]; then
   [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
 fi
 
+export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 
 # No ._ files in archives please
 export COPYFILE_DISABLE=true
