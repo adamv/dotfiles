@@ -19,6 +19,7 @@ for another_bin in \
   $HOME/bin \
   $HOME/bin-local \
   $HOME/bin/extras \
+  ~/brew/bin \
   /usr/texbin
 do
   [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
@@ -41,6 +42,9 @@ if [[ -n `which brew` ]]; then
   ruby_bin=$(brew --prefix ruby)/bin
   ruby_bin=`echo $ruby_bin`
   [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
+
+  # Add Homebrew completions
+  source $(brew --repo)/Library/Contributions/brew_bash_completion.sh
 fi
 
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
@@ -87,8 +91,7 @@ set completion-ignore-case On
 
 for comp in \
   /usr/local/etc/bash_completion \
-  /usr/local/etc/bash_completion.d/git-completion.bash \
-  $(brew --repo)/Library/Contributions/brew_bash_completion.sh
+  /usr/local/etc/bash_completion.d/git-completion.bash
 do
     [[ -e $comp ]] && source $comp
 done
@@ -193,9 +196,7 @@ function set_prompt {
     homebrew_prompt="${BROWN}Homebrew:${COLOR_NONE} debugging ${HOMEBREW_DEBUG_INSTALL}\n"
 
   git_prompt="$(parse_git_branch)"
-
   export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
-
   setWindowTitle "${PWD/$HOME/~}"
 }
 export PROMPT_COMMAND=set_prompt
