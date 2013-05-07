@@ -43,8 +43,14 @@ if [[ -n `which brew` ]]; then
   ruby_bin=`echo $ruby_bin`
   [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
 
-  # Add Homebrew completions
+  # Add Homebrew completions and homebrew sourced completions
   source $(brew --repo)/Library/Contributions/brew_bash_completion.sh
+  for comp in \
+    $(brew --prefix)/etc/bash_completion \
+    $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+  do
+    [[ -e $comp ]] && source $comp
+done
 fi
 
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
@@ -88,13 +94,6 @@ function kill-empty-folders {
 
 ## Tab Completions
 set completion-ignore-case On
-
-for comp in \
-  /usr/local/etc/bash_completion \
-  /usr/local/etc/bash_completion.d/git-completion.bash
-do
-    [[ -e $comp ]] && source $comp
-done
 
 
 ## Custom prompt
