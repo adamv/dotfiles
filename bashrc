@@ -29,6 +29,8 @@ done
 export HOMEBREW_CACHE=/usr/local/homebrew-cache
 # I don't like fun
 export HOMEBREW_NO_EMOJI='1'
+# Gimme errors
+export HOMEBREW_DEVELOPER='1'
 
 if [[ -n `which brew` ]]; then
   # Find a Homebrew-built Python
