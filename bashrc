@@ -2,8 +2,7 @@
 [ -z "$PS1" ] && return
 
 
-export EDITOR='mate'
-export GIT_EDITOR='mate -wl1'
+export EDITOR='emacs'
 
 
 ## History control
