@@ -9,41 +9,25 @@ export EDITOR='emacs'
 export HISTCONTROL=ignoreboth
 shopt -s histappend
 
-
 ## PATH
-# Put /usr/local/{sbin,bin} first
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
 for another_bin in \
+  /usr/local/bin \
+  /usr/local/sbin \
   $HOME/bin \
   $HOME/bin-local \
   $HOME/bin/extras \
-  ~/brew/bin \
+  ~/.hb/bin \
   /usr/texbin
 do
   [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
 
-# Move cache out of home folder
+## Homebrew
 export HOMEBREW_CACHE=/usr/local/homebrew-cache
-# I don't like fun
 export HOMEBREW_NO_EMOJI='1'
-# Gimme errors
 export HOMEBREW_DEVELOPER='1'
 
 if [[ -n `which brew` ]]; then
-  # Find a Homebrew-built Python
-  python_bin=$(brew --cellar python)/*/bin
-  python_bin=`echo $python_bin`
-  [[ -e $python_bin ]] && export PATH=$python_bin:$PATH
-
-  [[ -e /usr/local/share/python ]] && export PATH=/usr/local/share/python:$PATH
-
-  # Find a Homebrew-built Ruby
-  ruby_bin=$(brew --prefix ruby)/bin
-  ruby_bin=`echo $ruby_bin`
-  [[ -e $ruby_bin ]] && export PATH=$ruby_bin:$PATH
-
   # Add Homebrew completions and homebrew sourced completions
   source $(brew --repo)/Library/Contributions/brew_bash_completion.sh
   for comp in \
@@ -54,13 +38,11 @@ if [[ -n `which brew` ]]; then
 done
 fi
 
-export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 
 # No ._ files in archives please
 export COPYFILE_DISABLE=true
 
-
-#  ls aliases
+## ls aliases
 alias ll="ls -l -h"
 alias la="ls -a"
 alias l="ls"
