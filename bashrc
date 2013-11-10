@@ -16,8 +16,9 @@ for another_bin in \
   $HOME/bin \
   $HOME/bin-local \
   $HOME/bin/extras \
-  ~/.hb/bin \
-  /usr/texbin
+  $HOME/.hb/bin \
+  /usr/texbin \
+  $HOME/.gem/ruby/2.0.0/bin
 do
   [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
