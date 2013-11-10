@@ -23,7 +23,6 @@ do
 done
 
 ## Homebrew
-export HOMEBREW_CACHE=/usr/local/homebrew-cache
 export HOMEBREW_NO_EMOJI='1'
 export HOMEBREW_DEVELOPER='1'
 
