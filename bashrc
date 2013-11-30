@@ -106,29 +106,28 @@ LIGHTNING_BOLT="⚡"
 
 
 function parse_git_branch {
-  branch_pattern="^# On branch ([^${IFS}]*)"
-  remote_pattern_ahead="# Your branch is ahead of"
-  remote_pattern_behind="# Your branch is behind"
-  remote_pattern_ff="# Your branch (.*) can be fast-forwarded."
-  diverge_pattern="# Your branch and (.*) have diverged"
+  remote_pattern_ahead="Your branch is ahead of"
+  remote_pattern_behind="Your branch is behind"
+  remote_pattern_ff="Your branch (.*) can be fast-forwarded."
+  diverge_pattern="Your branch and (.*) have diverged"
+
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null)
 
   git_status="$(git status 2> /dev/null)"
-  if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
-    # Rebasing?
-    toplevel=$(git rev-parse --show-toplevel 2> /dev/null)
-    [[ -z "$toplevel" ]] && return
+  # if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
+  #   # Rebasing?
+  #   toplevel=$(git rev-parse --show-toplevel 2> /dev/null)
+  #   [[ -z "$toplevel" ]] && return
 
-    [[ -d "$toplevel/.git/rebase-merge" || -d "$toplevel/.git/rebase-apply" ]] && {
-      sha_file="$toplevel/.git/rebase-merge/stopped-sha"
-      [[ -e "$sha_file" ]] && {
-        sha=`cat "${sha_file}"`
-      }
-      echo "${PINK}(rebase in progress)${COLOR_NONE} ${sha}"
-    }
-    return
-  fi
-
-  branch=${BASH_REMATCH[1]}
+  #   [[ -d "$toplevel/.git/rebase-merge" || -d "$toplevel/.git/rebase-apply" ]] && {
+  #     sha_file="$toplevel/.git/rebase-merge/stopped-sha"
+  #     [[ -e "$sha_file" ]] && {
+  #       sha=`cat "${sha_file}"`
+  #     }
+  #     echo "${PINK}(rebase in progress)${COLOR_NONE} ${sha}"
+  #   }
+  #   return
+  # fi
 
   # Dirty?
   if [[ ! ${git_status} =~ "working directory clean" ]]; then
