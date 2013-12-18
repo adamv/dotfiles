@@ -50,9 +50,6 @@ alias delpyc="find . -name '*.pyc' -delete"
 alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 alias sizes='du -h -d1'
 
-alias go-bundles="cd ~/Library/Application\ Support/TextMate/Bundles/"
-alias go-themes="cd ~/Library/Application\ Support/TextMate/Themes/"
-
 alias flushdns="dscacheutil -flushcache"
 
 alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
