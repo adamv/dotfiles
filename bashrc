@@ -104,6 +104,8 @@ function parse_git_branch {
 
   branch=$(git symbolic-ref --short HEAD 2>/dev/null)
 
+  [[ -z $branch ]] && return
+
   git_status="$(git status 2> /dev/null)"
   # if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
   #   # Rebasing?
