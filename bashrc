@@ -9,6 +9,7 @@ export EDITOR='emacs'
 export HISTCONTROL=ignoreboth
 shopt -s histappend
 
+
 ## PATH
 for another_bin in \
   /usr/local/bin \
@@ -41,13 +42,6 @@ fi
 
 # No ._ files in archives please
 export COPYFILE_DISABLE=true
-
-## ls aliases
-alias ll="ls -l -h"
-alias la="ls -a"
-alias l="ls"
-alias lla="ls -a -l"
-alias lm='ls -la | less'
 
 
 ## Aliases
