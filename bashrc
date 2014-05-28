@@ -40,7 +40,7 @@ if [[ -n `which brew` ]]; then
     $(brew --prefix)/etc/bash_completion.d/git-completion.bash
   do
     [[ -e $comp ]] && source $comp
-done
+  done
 fi
 
 
