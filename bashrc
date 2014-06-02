@@ -28,6 +28,10 @@ done
 export HOMEBREW_NO_EMOJI='1'
 export HOMEBREW_DEVELOPER='1'
 
+if [ -f "/etc/bash_completion" ]; then
+    source /etc/bash_completion
+fi
+
 if [[ -n `which brew` ]]; then
   # Add Homebrew completions and homebrew sourced completions
   source $(brew --repo)/Library/Contributions/brew_bash_completion.sh
