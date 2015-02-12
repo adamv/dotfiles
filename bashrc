@@ -61,8 +61,6 @@ alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
 
 alias gh="gh-pick"
 
-alias e="emacs -nw"
-
 
 function show-empty-folders {
     find . -depth -type d -empty
