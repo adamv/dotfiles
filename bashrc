@@ -17,7 +17,7 @@ for another_bin in \
   $HOME/bin \
   $HOME/bin-local \
   $HOME/bin/extras \
-  $HOME/.hb/bin \
+  $HOME/opt/bin \
   /usr/texbin \
   $HOME/.gem/ruby/2.0.0/bin
 do
