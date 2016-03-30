@@ -91,14 +91,13 @@ LIGHTNING_BOLT="⚡"
 
 
 function parse_git_branch {
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+  [[ -z $branch ]] && return
+
   remote_pattern_ahead="Your branch is ahead of"
   remote_pattern_behind="Your branch is behind"
   remote_pattern_ff="Your branch (.*) can be fast-forwarded."
   diverge_pattern="Your branch and (.*) have diverged"
-
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-
-  [[ -z $branch ]] && return
 
   git_status="$(git status 2> /dev/null)"
   # if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
@@ -166,6 +165,7 @@ function set_prompt {
   export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
   setWindowTitle "${PWD/$HOME/~}"
 }
+
 export PROMPT_COMMAND=set_prompt
 
 
