@@ -20,15 +20,15 @@ do
   [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
 done
 
-## Homebrew
-export HOMEBREW_NO_EMOJI='1'
-export HOMEBREW_DEVELOPER='1'
-
 if [ -f "/etc/bash_completion" ]; then
     source /etc/bash_completion
 fi
 
+## Homebrew
 if [[ -n `which brew` ]]; then
+  export HOMEBREW_NO_EMOJI='1'
+  export HOMEBREW_DEVELOPER='1'
+
   # Add Homebrew completions and homebrew sourced completions
   source $(brew --repo)/Library/Contributions/brew_bash_completion.sh
   for comp in \
