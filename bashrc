@@ -54,8 +54,6 @@ alias delpyc="find . -name '*.pyc' -delete"
 alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 alias sizes='du -h -d1'
 
-alias flushdns="dscacheutil -flushcache"
-
 alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
 alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
 
