@@ -7,7 +7,7 @@ trap 'kill $(jobs -p)' EXIT
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist >/dev/null 2>&1
 
 # launch the media key program in the background
-(cmus-media-keys) &
+cmus-media-keys &
 
 # pipe CoreAudio messages to null:
 # https://github.com/cmus/cmus/issues/421
