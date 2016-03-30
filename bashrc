@@ -45,7 +45,7 @@ fi
 
 
 # No ._ files in archives please
-export COPYFILE_DISABLE=true
+export COPYFILE_DISABLE=1
 
 
 ## Aliases
