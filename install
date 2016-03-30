@@ -21,7 +21,6 @@ relink ~/.bash_profile $DIR/bash_profile
 relink ~/.bashrc       $DIR/bashrc
 relink ~/.gitconfig    $DIR/git-config
 relink ~/.gitignore    $DIR/git-ignore-global
-relink ~/.hgrc         $DIR/hgrc
 relink ~/.inputrc      $DIR/inputrc
 
 relink ~/bin           $DIR/bin
