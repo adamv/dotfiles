@@ -12,13 +12,9 @@ shopt -s histappend
 
 ## PATH
 for another_bin in \
-  /usr/local/bin \
-  /usr/local/sbin \
   $HOME/opt/bin \
   $HOME/bin \
   $HOME/bin-local \
-  $HOME/bin/extras \
-  /usr/texbin \
   $HOME/.gem/ruby/2.0.0/bin
 do
   [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
