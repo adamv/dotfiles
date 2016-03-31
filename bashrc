@@ -3,6 +3,8 @@
 
 
 export EDITOR='emacs'
+# No ._ files in archives please
+export COPYFILE_DISABLE=1
 
 
 ## History control
@@ -10,19 +12,14 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 
 
-## PATH
-for another_bin in \
-  $HOME/opt/bin \
-  $HOME/bin \
-  $HOME/bin-local \
-  $HOME/.gem/ruby/2.0.0/bin
-do
-  [[ -e $another_bin ]] && export PATH=$another_bin:$PATH
-done
+## Tab Completions
+set completion-ignore-case On
 
-if [ -f "/etc/bash_completion" ]; then
-    source /etc/bash_completion
-fi
+export PATH=$HOME/opt/bin:$HOME/hb/bin:$HOME/bin:$HOME/bin-local:$HOME/.gem/ruby/2.0.0/bin:$PATH
+
+## Completions (on Linux)
+[[ -f "/etc/bash_completion" ]] && source /etc/bash_completion
+
 
 ## Homebrew
 if [[ -n `which brew` ]]; then
@@ -38,10 +35,6 @@ if [[ -n `which brew` ]]; then
     [[ -e $comp ]] && source $comp
   done
 fi
-
-
-# No ._ files in archives please
-export COPYFILE_DISABLE=1
 
 
 ## Aliases
@@ -61,9 +54,6 @@ function show-empty-folders {
 function kill-empty-folders {
     find . -depth -type d -empty -exec rmdir "{}" \;
 }
-
-## Tab Completions
-set completion-ignore-case On
 
 
 ## Custom prompt
@@ -202,6 +192,4 @@ function pgrep {
   find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
 }
 
-if [ -f "$HOME/.bash-local" ]; then
-    source $HOME/.bash-local
-fi
+[[ -f "$HOME/.bash-local" ]] && source $HOME/.bash-local
