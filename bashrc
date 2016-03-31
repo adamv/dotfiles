@@ -58,6 +58,38 @@ function kill-empty-folders {
     find . -depth -type d -empty -exec rmdir "{}" \;
 }
 
+function git-root {
+  root=$(git rev-parse --git-dir 2> /dev/null)
+  [[ -z "$root" ]] && root="."
+  dirname $root
+}
+
+# Reveal current or provided folder in Path Finder
+function pf {
+  target_path="$(cd ${1:-"$PWD"} && PWD)"
+  osascript<<END
+tell app "Path Finder"
+  reveal POSIX file("$target_path")
+  activate
+end tell
+END
+}
+
+# Open a manpage in Preview, which can be saved to PDF
+function pman {
+   man -t "${1}" | open -f -a /Applications/Preview.app
+}
+
+# Open a manpage in the browser
+function bman {
+  man "${1}" | man2html | browser
+}
+
+function pgrep {
+  local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
+  find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
+}
+
 
 ## Custom prompt
 # Colors
@@ -160,37 +192,3 @@ function set_prompt {
 }
 
 export PROMPT_COMMAND=set_prompt
-
-
-function git-root {
-  root=$(git rev-parse --git-dir 2> /dev/null)
-  [[ -z "$root" ]] && root="."
-  dirname $root
-}
-
-
-# Reveal current or provided folder in Path Finder
-function pf {
-  target_path="$(cd ${1:-"$PWD"} && PWD)"
-  osascript<<END
-tell app "Path Finder"
-  reveal POSIX file("$target_path")
-  activate
-end tell
-END
-}
-
-# Open a manpage in Preview, which can be saved to PDF
-function pman {
-   man -t "${1}" | open -f -a /Applications/Preview.app
-}
-
-# Open a manpage in the browser
-function bman {
-  man "${1}" | man2html | browser
-}
-
-function pgrep {
-  local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
-  find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
-}
