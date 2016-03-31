@@ -18,7 +18,7 @@ set completion-ignore-case On
 
 
 # Path
-export PATH=$HOME/opt/bin:$HOME/opt/sbin:$HOME/hb/bin:$HOME/hb/sbin:$HOME/bin:$HOME/bin-local:$HOME/.gem/ruby/2.0.0/bin:$PATH
+export PATH=$HOME/bin:$HOME/bin-local:$HOME/opt/bin:$HOME/opt/sbin:$HOME/hb/bin:$HOME/hb/sbin:$HOME/.gem/ruby/2.0.0/bin:$PATH
 
 
 ## Completions (on Linux)
