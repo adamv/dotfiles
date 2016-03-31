@@ -153,7 +153,7 @@ function setWindowTitle {
 
 function set_prompt {
   git_prompt="$(parse_git_branch)"
-  export PS1="[\w] ${git_prompt}${COLOR_NONE}\n${homebrew_prompt}\$ "
+  export PS1="[\w] ${git_prompt}${COLOR_NONE}\n\$ "
   setWindowTitle "${PWD/$HOME/~}"
 }
 
