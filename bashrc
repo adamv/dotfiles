@@ -1,6 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+source_if() { [[ -f $1 ]] && source $1 ; }
 
 export EDITOR='emacs'
 # No ._ files in archives please
@@ -18,7 +19,7 @@ set completion-ignore-case On
 export PATH=$HOME/opt/bin:$HOME/opt/sbin:$HOME/hb/bin:$HOME/hb/sbin:$HOME/bin:$HOME/bin-local:$HOME/.gem/ruby/2.0.0/bin:$PATH
 
 ## Completions (on Linux)
-[[ -f "/etc/bash_completion" ]] && source /etc/bash_completion
+source_if "/etc/bash_completion"
 
 
 ## Homebrew
@@ -32,7 +33,7 @@ if [[ -n `which brew` ]]; then
     $(brew --prefix)/etc/bash_completion \
     $(brew --prefix)/etc/bash_completion.d/git-completion.bash
   do
-    [[ -e $comp ]] && source $comp
+      source_if $comp
   done
 fi
 
@@ -191,5 +192,3 @@ function pgrep {
   local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
   find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
 }
-
-[[ -f "$HOME/.bash-local" ]] && source $HOME/.bash-local
