@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-source_if() { [[ -f $1 ]] && source $1 ; }
+source_if() { [ -f $1 ] && source $1 ; }
 
 export EDITOR='emacs'
 # No ._ files in archives please
