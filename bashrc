@@ -16,7 +16,10 @@ shopt -s histappend
 ## Tab Completions
 set completion-ignore-case On
 
+
+# Path
 export PATH=$HOME/opt/bin:$HOME/opt/sbin:$HOME/hb/bin:$HOME/hb/sbin:$HOME/bin:$HOME/bin-local:$HOME/.gem/ruby/2.0.0/bin:$PATH
+
 
 ## Completions (on Linux)
 source_if "/etc/bash_completion"
@@ -43,7 +46,6 @@ alias cls='clear'
 alias delpyc="find . -name '*.pyc' -delete"
 alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 alias sizes='du -h -d1'
-
 alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
 alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
 
