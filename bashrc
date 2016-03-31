@@ -65,6 +65,7 @@ function git-root {
 }
 
 # Reveal current or provided folder in Path Finder
+# (For Finder, use `open .`)
 function pf {
   target_path="$(cd ${1:-"$PWD"} && PWD)"
   osascript<<END
