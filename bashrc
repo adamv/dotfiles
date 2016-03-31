@@ -38,6 +38,7 @@ if [[ -n `which brew` ]]; then
   do
       source_if $comp
   done
+  unset comp;
 fi
 
 
@@ -117,15 +118,15 @@ LIGHTNING_BOLT="⚡"
 
 
 function parse_git_branch {
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+  local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
   [[ -z $branch ]] && return
 
-  remote_pattern_ahead="Your branch is ahead of"
-  remote_pattern_behind="Your branch is behind"
-  remote_pattern_ff="Your branch (.*) can be fast-forwarded."
-  diverge_pattern="Your branch and (.*) have diverged"
+  local remote_pattern_ahead="Your branch is ahead of"
+  local remote_pattern_behind="Your branch is behind"
+  local remote_pattern_ff="Your branch (.*) can be fast-forwarded."
+  local diverge_pattern="Your branch and (.*) have diverged"
 
-  git_status="$(git status 2> /dev/null)"
+  local git_status="$(git status 2> /dev/null)"
   # if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
   #   # Rebasing?
   #   toplevel=$(git rev-parse --show-toplevel 2> /dev/null)
@@ -144,35 +145,35 @@ function parse_git_branch {
   # Dirty?
   if [[ ! ${git_status} =~ "working directory clean" ]]; then
     [[ ${git_status} =~ "modified:" ]] && {
-      git_is_dirty="${RED}${LIGHTNING_BOLT}"
+      local git_is_dirty="${RED}${LIGHTNING_BOLT}"
     }
 
     [[ ${git_status} =~ "Untracked files" ]] && {
-      git_is_dirty="${git_is_dirty}${WHITE}${MIDDOT}"
+      local git_is_dirty="${git_is_dirty}${WHITE}${MIDDOT}"
     }
 
     [[ ${git_status} =~ "new file:" ]] && {
-      git_is_dirty="${git_is_dirty}${LT_GREEN}+"
+      local git_is_dirty="${git_is_dirty}${LT_GREEN}+"
     }
 
     [[ ${git_status} =~ "deleted:" ]] && {
-      git_is_dirty="${git_is_dirty}${RED}-"
+      local git_is_dirty="${git_is_dirty}${RED}-"
     }
 
     [[ ${git_status} =~ "renamed:" ]] && {
-      git_is_dirty="${git_is_dirty}${YELLOW}→"
+      local git_is_dirty="${git_is_dirty}${YELLOW}→"
     }
   fi
 
   # Are we ahead of, beind, or diverged from the remote?
   if [[ ${git_status} =~ ${remote_pattern_ahead} ]]; then
-    remote="${YELLOW}${UP_ARROW}"
+    local remote="${YELLOW}${UP_ARROW}"
   elif [[ ${git_status} =~ ${remote_pattern_ff} ]]; then
-    remote_ff="${WHITE}${FF_ARROW}"
+    local remote_ff="${WHITE}${FF_ARROW}"
   elif [[ ${git_status} =~ ${remote_pattern_behind} ]]; then
-    remote="${YELLOW}${DOWN_ARROW}"
+    local remote="${YELLOW}${DOWN_ARROW}"
   elif [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    remote="${YELLOW}${UD_ARROW}"
+    local remote="${YELLOW}${UD_ARROW}"
   fi
 
   echo "${remote}${remote_ff}${GREEN}(${branch})${COLOR_NONE}${git_is_dirty}${COLOR_NONE}"
@@ -187,8 +188,7 @@ function setWindowTitle {
 }
 
 function set_prompt {
-  git_prompt="$(parse_git_branch)"
-  export PS1="[\w] ${git_prompt}${COLOR_NONE}\n\$ "
+  export PS1="[\w] $(parse_git_branch)${COLOR_NONE}\n\$ "
   setWindowTitle "${PWD/$HOME/~}"
 }
 
