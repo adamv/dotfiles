@@ -15,7 +15,7 @@ shopt -s histappend
 ## Tab Completions
 set completion-ignore-case On
 
-export PATH=$HOME/opt/bin:$HOME/hb/bin:$HOME/bin:$HOME/bin-local:$HOME/.gem/ruby/2.0.0/bin:$PATH
+export PATH=$HOME/opt/bin:$HOME/opt/sbin:$HOME/hb/bin:$HOME/hb/sbin:$HOME/bin:$HOME/bin-local:$HOME/.gem/ruby/2.0.0/bin:$PATH
 
 ## Completions (on Linux)
 [[ -f "/etc/bash_completion" ]] && source /etc/bash_completion
