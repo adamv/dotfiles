@@ -6,21 +6,8 @@
   ui = auto
 
 [alias]
-  a    = commit --amend
-  b    = checkout -b
-  c    = commit
-  ca   = commit -a
-  dh   = diff HEAD^
-  dm   = diff master
-  lg   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-  msg  = commit --allow-empty -m
-  p    = !gh-pick
-  pick = cherry-pick -s
-  remaster = rebase master
-  rei  = rebase -i master
-  sb   = status -sb
-  top  = git rev-parse HEAD
-  wip  = commit -a -m 'wip'
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  wip = commit -a -m 'wip'
 
 [push]
   default = current
