@@ -31,14 +31,7 @@ if [[ -n `which brew` ]]; then
   export HOMEBREW_DEVELOPER='1'
 
   # Add Homebrew completions and homebrew sourced completions
-  source $(brew --repo)/Library/Contributions/brew_bash_completion.sh
-  for comp in \
-    $(brew --prefix)/etc/bash_completion \
-    $(brew --prefix)/etc/bash_completion.d/git-completion.bash
-  do
-      source_if $comp
-  done
-  unset comp;
+  source_if "$(brew --prefix)/etc/bash_completion"
 fi
 
 
