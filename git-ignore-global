@@ -3,3 +3,7 @@
 
 ## Python
 *.py[co]
+
+## IntelliJ
+.idea/
+*.iml
