@@ -190,7 +190,7 @@ export PROMPT_COMMAND=set_prompt
 
 # scmpuff
 # https://github.com/mroth/scmpuff/blob/master/README.md
-which scmpuff && {
+which -s scmpuff && {
     eval "$(scmpuff init -s --aliases=false)"
     alias gs='scmpuff_status'
 }
