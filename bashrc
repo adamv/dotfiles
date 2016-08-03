@@ -93,83 +93,61 @@ function pgrep {
     YELLOW="\[\033[1;33m\]"
      GREEN="\[\033[0;32m\]"
   LT_GREEN="\[\033[1;32m\]"
+     BROWN="\[\033[0;33m\]"
       BLUE="\[\033[0;34m\]"
-     WHITE="\[\033[1;37m\]"
     PURPLE="\[\033[1;35m\]"
       CYAN="\[\033[1;36m\]"
-     BROWN="\[\033[0;33m\]"
+   LT_BLUE="\[\033[1;34m\]"
+     WHITE="\[\033[1;37m\]"
 COLOR_NONE="\[\033[0m\]"
 
 LIGHTNING_BOLT="⚡"
-      UP_ARROW="↑"
-    DOWN_ARROW="↓"
-      UD_ARROW="↕"
-      FF_ARROW="→"
-       RECYCLE="♺"
-        MIDDOT="•"
-     PLUSMINUS="±"
+UP_ARROW="↑"
+DOWN_ARROW="↓"
+UD_ARROW="↕"
+FF_ARROW="→"
+RECYCLE="♺"
+MIDDOT="•"
+PLUSMINUS="±"
+ELLIPSES="…"
+CHECKMARK="✔"
 
 
 function parse_git_branch {
-  local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-  [[ -z $branch ]] && return
+    status=$(git status --porcelain --branch 2>/dev/null)
+    [ $? == 0 ] || exit 1
 
-  local remote_pattern_ahead="Your branch is ahead of"
-  local remote_pattern_behind="Your branch is behind"
-  local remote_pattern_ff="Your branch (.*) can be fast-forwarded."
-  local diverge_pattern="Your branch and (.*) have diverged"
+    branch=""
+    (( mods = 0 ))
+    (( adds = 0 ))
+    (( dels = 0 ))
+    (( news = 0 ))
+    (( rens = 0 ))
 
-  local git_status="$(git status 2> /dev/null)"
-  # if [[ ! ${git_status} =~ ${branch_pattern} ]]; then
-  #   # Rebasing?
-  #   toplevel=$(git rev-parse --show-toplevel 2> /dev/null)
-  #   [[ -z "$toplevel" ]] && return
+    while read -r line; do
+        _xy=${line:0:2}
+        _rest=${line:3}
+        case $_xy in
+            "##") branch=${_rest%...*}
+                  # todo - parse ahead/behind
+                  # https://github.com/git/git/blob/8c6d1f9807c67532e7fb545a944b064faff0f70b/wt-status.c#L1694
+                  ;;
+            A?)   (( adds++ )) ;;
+            M?)   (( mods++ )) ;;
+            D?)   (( dels++ )) ;;
+            "??") (( news++ )) ;;
+        esac
+    done <<< "$status"
 
-  #   [[ -d "$toplevel/.git/rebase-merge" || -d "$toplevel/.git/rebase-apply" ]] && {
-  #     sha_file="$toplevel/.git/rebase-merge/stopped-sha"
-  #     [[ -e "$sha_file" ]] && {
-  #       sha=`cat "${sha_file}"`
-  #     }
-  #     echo "${PINK}(rebase in progress)${COLOR_NONE} ${sha}"
-  #   }
-  #   return
-  # fi
+    git_sigils=""
+    (( adds > 0 )) && git_sigils="${git_sigils}${GREEN}+${adds}${COLOR_NONE}"
+    (( mods > 0 )) && git_sigils="${git_sigils}${YELLOW}~${mods}${COLOR_NONE}"
+    (( dels > 0 )) && git_sigils="${git_sigils}${RED}-${dels}${COLOR_NONE}"
+    (( news > 0 )) && git_sigils="${git_sigils}${WHITE}${ELLIPSES}${news}${COLOR_NONE}"
 
-  # Dirty?
-  if [[ ! ${git_status} =~ "working directory clean" ]]; then
-    [[ ${git_status} =~ "modified:" ]] && {
-      local git_is_dirty="${RED}${LIGHTNING_BOLT}"
-    }
+    [[ -z $git_sigils ]] && git_sigils="${LT_GREEN}${CHECKMARK}${COLOR_NONE}"
 
-    [[ ${git_status} =~ "Untracked files" ]] && {
-      local git_is_dirty="${git_is_dirty}${WHITE}${MIDDOT}"
-    }
-
-    [[ ${git_status} =~ "new file:" ]] && {
-      local git_is_dirty="${git_is_dirty}${LT_GREEN}+"
-    }
-
-    [[ ${git_status} =~ "deleted:" ]] && {
-      local git_is_dirty="${git_is_dirty}${RED}-"
-    }
-
-    [[ ${git_status} =~ "renamed:" ]] && {
-      local git_is_dirty="${git_is_dirty}${YELLOW}→"
-    }
-  fi
-
-  # Are we ahead of, beind, or diverged from the remote?
-  if [[ ${git_status} =~ ${remote_pattern_ahead} ]]; then
-    local remote="${YELLOW}${UP_ARROW}"
-  elif [[ ${git_status} =~ ${remote_pattern_ff} ]]; then
-    local remote_ff="${WHITE}${FF_ARROW}"
-  elif [[ ${git_status} =~ ${remote_pattern_behind} ]]; then
-    local remote="${YELLOW}${DOWN_ARROW}"
-  elif [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    local remote="${YELLOW}${UD_ARROW}"
-  fi
-
-  echo "${remote}${remote_ff}${GREEN}(${branch})${COLOR_NONE}${git_is_dirty}${COLOR_NONE}"
+    echo -e "(${LT_BLUE}${branch}${COLOR_NONE}|${git_sigils})"
 }
 
 function setWindowTitle {
