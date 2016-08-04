@@ -176,9 +176,8 @@ function __parse_git_status {
     [[ -n $git_sigils ]] && git_sigils=" $git_sigils"
 
     git_tracking=""
-    [[ -n $git_ahead ]] && git_tracking="${WHITE}${UP_ARROW}${COLOR_NONE}${git_ahead}"
-    [[ -n $git_behind ]] && git_tracking="${git_tracking}${WHITE}${DOWN_ARROW}${COLOR_NONE}${git_behind}"
-    [[ -n $git_tracking ]] && git_tracking=" $git_tracking"
+    [[ -n $git_behind ]] && git_tracking=" ${WHITE}${DOWN_ARROW}${COLOR_NONE}${git_behind}"
+    [[ -n $git_ahead ]] && git_tracking="${git_tracking} ${WHITE}${UP_ARROW}${COLOR_NONE}${git_ahead}"
 
     echo -e "(${git_branch}${git_tracking}${git_sigils})"
 }
