@@ -166,9 +166,9 @@ function __parse_git_status {
     (( dels > 0 )) && git_sigils="${git_sigils}${RED}-${dels}${COLOR_NONE}"
     (( news > 0 )) && git_sigils="${git_sigils}${WHITE}${ELLIPSES}${news}${COLOR_NONE}"
 
-    [[ -z $git_sigils ]] && git_sigils="${LT_GREEN}${CHECKMARK}${COLOR_NONE}"
+    [[ -n $git_sigils ]] && git_sigils="|$git_sigils"
 
-    echo -e "(${LT_BLUE}${branch}${COLOR_NONE}|${git_sigils})"
+    echo -e "(${git_branch}${git_sigils})"
 }
 
 function setWindowTitle {
