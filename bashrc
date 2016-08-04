@@ -124,6 +124,9 @@ function __parse_git_branch {
         if [[ -d "${g}/rebase-merge" ]] ; then
             branch_color=${PINK}
             git_branch=$(cut -f3- -d/ "${g}/rebase-merge/head-name")
+        elif [[ -d "${g}/rebase-apply" ]] ; then
+            branch_color=${PINK}
+            git_branch=$(cut -f3- -d/ "${g}/rebase-apply/head-name")
         else
             branch_color=${PURPLE}
             git_branch=$(git rev-parse --short HEAD)
