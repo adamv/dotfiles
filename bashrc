@@ -149,7 +149,10 @@ function __parse_git_status {
     (( dels = 0 ))
     (( news = 0 ))
     (( rens = 0 ))
+    (( cons = 0 ))
 
+    # Interpret file states
+    # https://git-scm.com/docs/git-status
     while read -r line; do
         _xy=${line:0:2}
         _rest=${line:3}
@@ -161,14 +164,16 @@ function __parse_git_status {
                   git_ahead=$(__parse_git_relative "ahead" "${_relative}")
                   git_behind=$(__parse_git_relative "behind" "${_relative}")
                   ;;
-            A?)   (( adds++ )) ;;
-            M?)   (( mods++ )) ;;
+            'DD'|'AU'|'UD'|'UA'|'DU'|'AA'|'UU') (( cons++ )) ;;
+            C?|A?)   (( adds++ )) ;;
+            M?|R?)   (( mods++ )) ;;
             D?)   (( dels++ )) ;;
             "??") (( news++ )) ;;
         esac
     done <<< "$status"
 
     git_sigils=""
+    (( cons > 0 )) && git_sigils="${git_sigils}${PURPLE}!${cons}${COLOR_NONE}"
     (( adds > 0 )) && git_sigils="${git_sigils}${GREEN}+${adds}${COLOR_NONE}"
     (( mods > 0 )) && git_sigils="${git_sigils}${YELLOW}~${mods}${COLOR_NONE}"
     (( dels > 0 )) && git_sigils="${git_sigils}${RED}-${dels}${COLOR_NONE}"
