@@ -28,7 +28,6 @@ source_if "/etc/bash_completion"
 ## Homebrew
 if [[ -n `which brew` ]]; then
   export HOMEBREW_NO_EMOJI='1'
-  export HOMEBREW_DEVELOPER='1'
   export HOMEBREW_NO_ANALYTICS='1'
 
   # Add Homebrew completions and homebrew sourced completions
