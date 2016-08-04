@@ -157,7 +157,7 @@ function __parse_git_status {
             "##") git_branch=$(__parse_git_branch "${_rest%...*}")
                   # parse ahead/behind
                   # https://github.com/git/git/blob/8c6d1f9807c67532e7fb545a944b064faff0f70b/wt-status.c#L1694
-                  _relative=$(echo "${_rest}" | cut -f2- -d' ')
+                  _relative=${_rest%%* }
                   git_ahead=$(__parse_git_relative "ahead" "${_relative}")
                   git_behind=$(__parse_git_relative "behind" "${_relative}")
                   ;;
