@@ -113,11 +113,31 @@ ELLIPSES="…"
 CHECKMARK="✔"
 
 
-function parse_git_branch {
+function __parse_git_branch {
+    declare branch="$1"
+
+    local branch_color=${LT_BLUE}
+    local git_branch=${branch}
+
+    if [[ ${branch} = "HEAD (no branch)" ]] ; then
+        local g=$(git rev-parse --git-dir)
+        if [[ -d "${g}/rebase-merge" ]] ; then
+            branch_color=${PINK}
+            git_branch=$(cut -f3- -d/ "${g}/rebase-merge/head-name")
+        else
+            branch_color=${PURPLE}
+            git_branch=$(git rev-parse --short HEAD)
+        fi
+    fi
+
+    echo -e "${branch_color}${git_branch}${COLOR_NONE}"
+}
+
+function __parse_git_status {
     status=$(git status --porcelain --branch 2>/dev/null)
     [ $? == 0 ] || exit 1
 
-    branch=""
+    git_branch=""
     (( mods = 0 ))
     (( adds = 0 ))
     (( dels = 0 ))
@@ -129,6 +149,7 @@ function parse_git_branch {
         _rest=${line:3}
         case $_xy in
             "##") branch=${_rest%...*}
+                  git_branch=$(__parse_git_branch "${branch}")
                   # todo - parse ahead/behind
                   # https://github.com/git/git/blob/8c6d1f9807c67532e7fb545a944b064faff0f70b/wt-status.c#L1694
                   ;;
@@ -159,7 +180,7 @@ function setWindowTitle {
 }
 
 function set_prompt {
-  export PS1="[\w] $(parse_git_branch)${COLOR_NONE}\n\$ "
+  export PS1="[\w] $(__parse_git_status)${COLOR_NONE}\n\$ "
   setWindowTitle "${PWD/$HOME/~}"
 }
 
