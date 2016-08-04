@@ -90,14 +90,14 @@ function pgrep {
 # Colors
        RED="\[\033[0;31m\]"
       PINK="\[\033[1;31m\]"
-    YELLOW="\[\033[1;33m\]"
      GREEN="\[\033[0;32m\]"
   LT_GREEN="\[\033[1;32m\]"
      BROWN="\[\033[0;33m\]"
+    YELLOW="\[\033[1;33m\]"
       BLUE="\[\033[0;34m\]"
+   LT_BLUE="\[\033[1;34m\]"
     PURPLE="\[\033[1;35m\]"
       CYAN="\[\033[1;36m\]"
-   LT_BLUE="\[\033[1;34m\]"
      WHITE="\[\033[1;37m\]"
 COLOR_NONE="\[\033[0m\]"
 
