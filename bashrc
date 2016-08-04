@@ -133,6 +133,12 @@ function __parse_git_branch {
     echo -e "${branch_color}${git_branch}${COLOR_NONE}"
 }
 
+function __parse_git_relative {
+    declare relation="$1" text="$2"
+    local regex="${relation} ([0-9]+)"
+    [[ $text =~ $regex ]] && echo "${BASH_REMATCH[1]}"
+}
+
 function __parse_git_status {
     status=$(git status --porcelain --branch 2>/dev/null)
     [ $? == 0 ] || exit 1
@@ -148,10 +154,12 @@ function __parse_git_status {
         _xy=${line:0:2}
         _rest=${line:3}
         case $_xy in
-            "##") branch=${_rest%...*}
-                  git_branch=$(__parse_git_branch "${branch}")
-                  # todo - parse ahead/behind
+            "##") git_branch=$(__parse_git_branch "${_rest%...*}")
+                  # parse ahead/behind
                   # https://github.com/git/git/blob/8c6d1f9807c67532e7fb545a944b064faff0f70b/wt-status.c#L1694
+                  _relative=$(echo "${_rest}" | cut -f2- -d' ')
+                  git_ahead=$(__parse_git_relative "ahead" "${_relative}")
+                  git_behind=$(__parse_git_relative "behind" "${_relative}")
                   ;;
             A?)   (( adds++ )) ;;
             M?)   (( mods++ )) ;;
@@ -165,10 +173,14 @@ function __parse_git_status {
     (( mods > 0 )) && git_sigils="${git_sigils}${YELLOW}~${mods}${COLOR_NONE}"
     (( dels > 0 )) && git_sigils="${git_sigils}${RED}-${dels}${COLOR_NONE}"
     (( news > 0 )) && git_sigils="${git_sigils}${WHITE}${ELLIPSES}${news}${COLOR_NONE}"
+    [[ -n $git_sigils ]] && git_sigils=" $git_sigils"
 
-    [[ -n $git_sigils ]] && git_sigils="|$git_sigils"
+    git_tracking=""
+    [[ -n $git_ahead ]] && git_tracking="${WHITE}${UP_ARROW}${COLOR_NONE}${git_ahead}"
+    [[ -n $git_behind ]] && git_tracking="${git_tracking}${WHITE}${DOWN_ARROW}${COLOR_NONE}${git_behind}"
+    [[ -n $git_tracking ]] && git_tracking=" $git_tracking"
 
-    echo -e "(${git_branch}${git_sigils})"
+    echo -e "(${git_branch}${git_tracking}${git_sigils})"
 }
 
 function setWindowTitle {
