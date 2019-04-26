@@ -1,2 +1,0 @@
-#!/bin/bash
-exec $(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs "$@"
