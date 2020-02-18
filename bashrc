@@ -143,7 +143,7 @@ function __parse_git_relative {
 }
 
 function __parse_git_status {
-    status=$(git status --porcelain --branch 2>/dev/null)
+    status=$(git status --porcelain --branch 2>&1)
     [[ $? == 0 ]] || exit 1
 
     git_branch=""
