@@ -1,9 +1,10 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-source_if() { [ -f $1 ] && source $1 ; }
+source_if() { [ -f $1 ] && source $1 1> /dev/null ; }
 
 export EDITOR='emacs'
+
 # No ._ files in archives please
 export COPYFILE_DISABLE=1
 
@@ -42,6 +43,10 @@ alias tree='tree -Ca -I ".git|.svn|*.pyc|*.swp"'
 alias sizes='du -h -d1'
 alias pigs="du | sort -nr | cut -f2- | xargs du -hs"
 alias pigs1="du -d1 | sort -nr | cut -f2- | xargs du -hs"
+
+
+## Java
+source_if $HOME/dotfiles/java-helpers.sh
 
 
 function show-empty-folders {
